@@ -5,6 +5,7 @@ import Grnderbanner from "../img/korean_art.jpg";
 import Camera from "../img/camera.png";
 import Star from "../img/star.png";
 import { FormProvider, useForm1 } from "../context/formContext";
+import kingLogo from "../img/king_logo.svg";
 
 export default function FileUpload({
   onNext,
@@ -75,6 +76,7 @@ export default function FileUpload({
     <div className={styles.file_upload}>
       <div className={styles.gender_banner}>
         <img src={Grnderbanner.src} alt="Grnderbanner" />
+        <img src={kingLogo.src} alt="kingLogo" className={styles.kingLogo} />
         <div className={styles.gender_title}>
           <h3 className={styles.gender_title_1}>Say “Kimchi”</h3>
         </div>
