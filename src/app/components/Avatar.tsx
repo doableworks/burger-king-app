@@ -20,6 +20,7 @@ import PopFrame from "../img/Pop_fram.png";
 import ManhwaFrame from "../img/Manhwa_fram.png";
 import FoodieFrame from "../img/Foodie_fram.png";
 import DramaFrame from "../img/Drama_fram.png";
+import kingLogo from "../img/king_logo.svg";
 
 export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack: () => void }){
   const [selectedFrame, setSelectedFrame] = useState<string | null>(null);
@@ -47,7 +48,7 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
     variableWidth: true,
     centerMode: true,
     focusOnSelect: true,
-    autoplay: true,
+    autoplay: false,
     autoplaySpeed: 2000,
     cssEase: "ease-in-out",
     pauseOnFocus: false, // 👈 this keeps autoplay running even when focused
@@ -57,6 +58,7 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
       <div className={styles.avatar}>
         <div className={styles.gender_banner}>
             <img src={Grnderbanner.src} alt="Grnderbanner" />
+            <img src={kingLogo.src} alt="kingLogo" className={styles.kingLogo} />
             <div className={styles.gender_title}>
                 <h3 className={styles.gender_title_1}>Pick Your K-Style <br/> Avatar</h3>
                 <h3 className={styles.gender_title_2}>Pick Your K-Style <br/> Avatar</h3>
@@ -66,16 +68,58 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
           <div className={styles.avatar_slider}>
           <Slider {...settings}>
             <div className={`${styles.item} ${selectedFrame === PopFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(PopFrame.src)}>
+
               <img src={kpopMale.src} alt="Slider img" />
+
+              <div className={styles.frame_name_wrapper}>
+                <div className={styles.frame_name_1}>
+                  <h3>K-Pop <br/> Army</h3>
+                </div>
+                <div className={styles.frame_name_2}>
+                  <h3>K-Pop <br/> Army</h3>
+                </div>
+              </div>
             </div>
             <div className={`${styles.item} ${selectedFrame === ManhwaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(ManhwaFrame.src)}>
+
               <img src={manhwaMale.src} alt="Slider img" />
+
+              <div className={styles.frame_name_wrapper}>
+                <div className={styles.frame_name_1}>
+                  <h3>Manhwa <br/> Maniacs</h3>
+                </div>
+                <div className={styles.frame_name_2}>
+                  <h3>Manhwa <br/> Maniacs</h3>
+                </div>
+              </div>
             </div>
             <div className={`${styles.item} ${selectedFrame === FoodieFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(FoodieFrame.src)}>
+
               <img src={foodieMale.src} alt="Slider img" />
+
+              <div className={styles.frame_name_wrapper}>
+                <div className={styles.frame_name_1}>
+                  <h3>K-Foodie <br/> Fanatics</h3>
+                </div>
+                <div className={styles.frame_name_2}>
+                <h3>K-Foodie <br/> Fanatics</h3>
+                </div>
+              </div>
+
             </div>
             <div className={`${styles.item} ${selectedFrame === DramaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(DramaFrame.src)}>
+
               <img src={dramaMale.src} alt="Slider img" />
+
+              <div className={styles.frame_name_wrapper}>
+                <div className={styles.frame_name_1}>
+                  <h3>K-Drama <br/> Die-Hards</h3>
+                </div>
+                <div className={styles.frame_name_2}>
+                <h3>K-Drama <br/> Die-Hards</h3>
+                </div>
+              </div>
+
             </div>
           </Slider>
         </div>
@@ -85,15 +129,47 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
             <Slider {...settings}>
               <div className={`${styles.item} ${selectedFrame === PopFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(PopFrame.src)}>
                 <img src={kpopFemale.src} alt="Slider img" />
+                <div className={styles.frame_name_wrapper}>
+                <div className={styles.frame_name_1}>
+                  <h3>K-Pop <br/> Army</h3>
+                </div>
+                <div className={styles.frame_name_2}>
+                  <h3>K-Pop <br/> Army</h3>
+                </div>
+              </div>
               </div>
               <div className={`${styles.item} ${selectedFrame === ManhwaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(ManhwaFrame.src)}>
                 <img src={manhwaFemale.src} alt="Slider img" />
+                <div className={styles.frame_name_wrapper}>
+                <div className={styles.frame_name_1}>
+                  <h3>Manhwa <br/> Maniacs</h3>
+                </div>
+                <div className={styles.frame_name_2}>
+                  <h3>Manhwa <br/> Maniacs</h3>
+                </div>
+              </div>
               </div>
               <div className={`${styles.item} ${selectedFrame === FoodieFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(FoodieFrame.src)}>
                 <img src={foodieFemale.src} alt="Slider img" />
+                <div className={styles.frame_name_wrapper}>
+                <div className={styles.frame_name_1}>
+                  <h3>K-Foodie <br/> Fanatics</h3>
+                </div>
+                <div className={styles.frame_name_2}>
+                <h3>K-Foodie <br/> Fanatics</h3>
+                </div>
+              </div>
               </div>
               <div className={`${styles.item} ${selectedFrame === DramaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(DramaFrame.src)}>
                 <img src={dramaFemale.src} alt="Slider img" />
+                <div className={styles.frame_name_wrapper}>
+                <div className={styles.frame_name_1}>
+                  <h3>K-Drama <br/> Die-Hards</h3>
+                </div>
+                <div className={styles.frame_name_2}>
+                <h3>K-Drama <br/> Die-Hards</h3>
+                </div>
+              </div>
               </div>
             </Slider>
           </div>

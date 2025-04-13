@@ -33,9 +33,9 @@ console.log(userName, "userName");
     return (
       <>
         <div className={styles.home_page_wrapper}>
-          <div className={styles.Header_logo}>
+          {/* <div className={styles.Header_logo}>
             <img src={HeaderLogo.src} alt="logo" />
-          </div>
+          </div> */}
 
           <div className={styles.home_banner}>
             <img src={HomeBanner.src} alt="HomeBanner" />
@@ -71,7 +71,19 @@ console.log(userName, "userName");
         type="text"
         id="name"
         placeholder="Enter name"
-        {...register("name", { required: true })}
+        {...register("name", {
+          required: true,
+          pattern: {
+            value: /^[A-Za-z\s]+$/,
+            message: "Only letters are allowed",
+          },
+        })}
+        onKeyDown={(e) => {
+          const isLetterOrSpace = /^[a-zA-Z\s]$/.test(e.key);
+          if (!isLetterOrSpace && e.key !== "Backspace" && e.key !== "Tab") {
+            e.preventDefault(); // Block all non-alphabet keys
+          }
+        }}
       />
       {errors.name && errors.name.type === "required" && (
         <label className={styles.error}>This field is required</label>

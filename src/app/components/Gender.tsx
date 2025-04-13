@@ -5,6 +5,7 @@ import Grnderbanner from "../img/korean_art.jpg";
 import Male from "../img/male.png";
 import Female from "../img/female.png";
 import GenderBg from "../img/gender_bg.png";
+import kingLogo from "../img/king_logo.svg";
 
 interface GenderProps {
     onNext: (gender: string) => void;
@@ -23,6 +24,7 @@ export default function Gender({ onNext }: { onNext: () => void }){
     <div className={styles.gender}>
         <div className={styles.gender_banner}>
             <img src={Grnderbanner.src} alt="Grnderbanner" />
+            <img src={kingLogo.src} alt="kingLogo" className={styles.kingLogo} />
             <div className={styles.gender_title}>
                 <h3 className={styles.gender_title_1}>Choose Your K-Vibe!</h3>
                 <h3 className={styles.gender_title_2}>Choose Your K-Vibe!</h3>
