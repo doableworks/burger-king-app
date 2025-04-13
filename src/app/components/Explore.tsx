@@ -9,11 +9,20 @@ import Download from "../img/download_img.jpg";
 import DownloadBtn from "../img/download.png";
 import Insta from "../img/insta.png";
 import kingLogo from "../img/king_logo.svg";
+import { FormProvider, useForm1 } from '../context/formContext';
 
 export default function Explore(){
   const divRef = useRef(null);
   const [framePath, setFramePath] = useState<string | null>(null);
-
+  const { formData } = useForm1();
+  const [hasOpened, setHasOpened] = useState(false);
+  const [downloadSrc, setdownloadSrc] = useState(Download.src);
+  if (formData.file && !hasOpened) {
+    // window.open(formData.file, '_blank');
+    setdownloadSrc(formData.file);
+    setHasOpened(true);
+  }
+  
   const handleDownload = async () => {
     if (!divRef.current) return;
 
@@ -47,7 +56,7 @@ export default function Explore(){
               {framePath && (
                 <img src={framePath} alt="Selected Avatar Frame" />
               )}
-              <img src={Download.src} alt="Download" className={styles.avatar_img_final} /> 
+              <img src={downloadSrc} alt="Download" className={styles.avatar_img_final} /> 
           </div>
       </div>
       <div className={styles.participate_section}>

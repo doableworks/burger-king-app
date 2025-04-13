@@ -35,13 +35,12 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
     console.log("Stored gender:", storedGender);
   }, []);
 
-  const handleAvatarClick = (frameSrc: string) => {
+  const handleAvatarClick = (frameSrc: string, avatar: string) => {
   localStorage.setItem("selectedAvatarFrame", frameSrc);
   setIsAvatarSelected(true);
   setSelectedFrame(frameSrc);
   console.log("Avatar frame stored:", frameSrc);
-  let Avatar = "K-Drama";
-  updateForm("style",Avatar);
+  updateForm("style",avatar);
 };
 
   var settings = {
@@ -71,56 +70,56 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
         {gender === "male" && (
           <div className={styles.avatar_slider}>
           <Slider {...settings}>
-            <div className={`${styles.item} ${selectedFrame === PopFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(PopFrame.src)}>
+            <div className={`${styles.item} ${selectedFrame === PopFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(PopFrame.src, "K-Pop")}>
 
               <img src={kpopMale.src} alt="Slider img" />
 
               <div className={styles.frame_name_wrapper}>
                 <div className={styles.frame_name_1}>
-                  <h3>K-Pop <br/> Army</h3>
+                  <h3>K-Pop<br/> Army</h3>
                 </div>
                 <div className={styles.frame_name_2}>
-                  <h3>K-Pop <br/> Army</h3>
+                  <h3>K-Pop<br/> Army</h3>
                 </div>
               </div>
             </div>
-            <div className={`${styles.item} ${selectedFrame === ManhwaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(ManhwaFrame.src)}>
+            <div className={`${styles.item} ${selectedFrame === ManhwaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(ManhwaFrame.src, "Manhwa")}>
 
               <img src={manhwaMale.src} alt="Slider img" />
 
               <div className={styles.frame_name_wrapper}>
                 <div className={styles.frame_name_1}>
-                  <h3>Manhwa <br/> Maniacs</h3>
+                  <h3>Manhwa<br/> Maniacs</h3>
                 </div>
                 <div className={styles.frame_name_2}>
-                  <h3>Manhwa <br/> Maniacs</h3>
+                  <h3>Manhwa<br/> Maniacs</h3>
                 </div>
               </div>
             </div>
-            <div className={`${styles.item} ${selectedFrame === FoodieFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(FoodieFrame.src)}>
+            <div className={`${styles.item} ${selectedFrame === FoodieFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(FoodieFrame.src,"K-Foodie")}>
 
               <img src={foodieMale.src} alt="Slider img" />
 
               <div className={styles.frame_name_wrapper}>
                 <div className={styles.frame_name_1}>
-                  <h3>K-Foodie <br/> Fanatics</h3>
+                  <h3>K-Foodie<br/> Fanatics</h3>
                 </div>
                 <div className={styles.frame_name_2}>
-                <h3>K-Foodie <br/> Fanatics</h3>
+                <h3>K-Foodie<br/> Fanatics</h3>
                 </div>
               </div>
 
             </div>
-            <div className={`${styles.item} ${selectedFrame === DramaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(DramaFrame.src)}>
+            <div className={`${styles.item} ${selectedFrame === DramaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(DramaFrame.src, "K-Drama")}>
 
               <img src={dramaMale.src} alt="Slider img" />
 
               <div className={styles.frame_name_wrapper}>
                 <div className={styles.frame_name_1}>
-                  <h3>K-Drama <br/> Die-Hards</h3>
+                  <h3>K-Drama<br/> Die-Hards</h3>
                 </div>
                 <div className={styles.frame_name_2}>
-                <h3>K-Drama <br/> Die-Hards</h3>
+                <h3>K-Drama<br/> Die-Hards</h3>
                 </div>
               </div>
 
@@ -131,7 +130,7 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
         {gender === "female" && (
           <div className={styles.avatar_slider}>
             <Slider {...settings}>
-              <div className={`${styles.item} ${selectedFrame === PopFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(PopFrame.src)}>
+              <div className={`${styles.item} ${selectedFrame === PopFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(PopFrame.src, "K-Pop")}>
                 <img src={kpopFemale.src} alt="Slider img" />
                 <div className={styles.frame_name_wrapper}>
                 <div className={styles.frame_name_1}>
@@ -142,7 +141,7 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
                 </div>
               </div>
               </div>
-              <div className={`${styles.item} ${selectedFrame === ManhwaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(ManhwaFrame.src)}>
+              <div className={`${styles.item} ${selectedFrame === ManhwaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(ManhwaFrame.src, "Manhwa")}>
                 <img src={manhwaFemale.src} alt="Slider img" />
                 <div className={styles.frame_name_wrapper}>
                 <div className={styles.frame_name_1}>
@@ -153,7 +152,7 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
                 </div>
               </div>
               </div>
-              <div className={`${styles.item} ${selectedFrame === FoodieFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(FoodieFrame.src)}>
+              <div className={`${styles.item} ${selectedFrame === FoodieFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(FoodieFrame.src, "K-Foodie")}>
                 <img src={foodieFemale.src} alt="Slider img" />
                 <div className={styles.frame_name_wrapper}>
                 <div className={styles.frame_name_1}>
@@ -164,7 +163,7 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
                 </div>
               </div>
               </div>
-              <div className={`${styles.item} ${selectedFrame === DramaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(DramaFrame.src)}>
+              <div className={`${styles.item} ${selectedFrame === DramaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(DramaFrame.src, "K-Drama")}>
                 <img src={dramaFemale.src} alt="Slider img" />
                 <div className={styles.frame_name_wrapper}>
                 <div className={styles.frame_name_1}>
@@ -190,7 +189,7 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
           <div
             id="nextBtn"
             onClick={() => {
-              if (isAvatarSelected) {
+              if (isAvatarSelected && formData.style) {
                 onNext();
               } else {
                 alert("Please select an avatar first!");
