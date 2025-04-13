@@ -8,6 +8,8 @@ import DownArrow from "../img/down_arrow.png";
 import KingLogo from "../img/king_logo.svg";
 import CentrePhoto from "../img/centre_photo.png";
 import { useForm } from "react-hook-form";
+import { FormProvider, useForm1 } from '@/app/context/formContext'; // ✅
+
 
 
 export default function HomePage({ onNext }: { onNext: () => void }) {
@@ -20,10 +22,11 @@ export default function HomePage({ onNext }: { onNext: () => void }) {
 		watch,
 		formState: { errors },
 	} = useForm();
-
+  const { formData, updateForm } = useForm1();
 
 const onSubmit = (data: any) => {
   setUserName(data.name);
+  updateForm("name", data.name);
   console.log("User Name stored in state:", data.name);
   onNext();
 };

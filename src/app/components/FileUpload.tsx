@@ -4,6 +4,7 @@ import styles from "../../styles/pages/home.module.scss";
 import Grnderbanner from "../img/korean_art.jpg";
 import Camera from "../img/camera.png";
 import Star from "../img/star.png";
+import { FormProvider, useForm1 } from "../context/formContext";
 
 export default function FileUpload({
   onNext,
@@ -12,6 +13,12 @@ export default function FileUpload({
   onNext: () => void;
   onBack: () => void;
 }) {
+
+  const { formData, updateForm } = useForm1();
+  console.log("Name: ",formData.name);
+  console.log("Gender: ",formData.gender);
+  console.log("Style: ",formData.style);
+
   const selfieInputRef = useRef<HTMLInputElement>(null);
   const uploadInputRef = useRef<HTMLInputElement>(null);
 
@@ -43,6 +50,10 @@ export default function FileUpload({
     if (file) {
       setSelfieFile(file);
       setSelfiePreview(URL.createObjectURL(file));
+      updateForm("file",file);
+    }
+    else{
+      updateForm("file",null)
     }
   };
 
@@ -51,6 +62,10 @@ export default function FileUpload({
     if (file) {
       setUploadFile(file);
       setUploadPreview(URL.createObjectURL(file));
+      updateForm("file",file);
+    }
+    else{
+      updateForm("file",null)
     }
   };
 
@@ -140,7 +155,7 @@ export default function FileUpload({
         <div
           id="nextBtn"
           onClick={() => {
-            if (finalFile) {
+            if (finalFile && formData.file) {
               onNext();
             } else {
               alert("Please upload a selfie or a file first!");

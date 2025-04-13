@@ -5,6 +5,7 @@ import Grnderbanner from "../img/korean_art.jpg";
 import Male from "../img/male.png";
 import Female from "../img/female.png";
 import GenderBg from "../img/gender_bg.png";
+import { FormProvider, useForm1 } from '@/app/context/formContext'; // ✅
 
 interface GenderProps {
     onNext: (gender: string) => void;
@@ -12,11 +13,12 @@ interface GenderProps {
 
 export default function Gender({ onNext }: { onNext: () => void }){
     const [selectedGender, setSelectedGender] = useState<string | null>(null);
-
+    const { formData, updateForm } = useForm1();
     /** handleSelectGender */
     const handleSelectGender = (gender: string) => {
       setSelectedGender(gender);
       localStorage.setItem("selectedGender", gender); 
+      updateForm("gender",gender);
     };
 
     return(

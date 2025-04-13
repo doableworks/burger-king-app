@@ -20,11 +20,13 @@ import PopFrame from "../img/Pop_fram.png";
 import ManhwaFrame from "../img/Manhwa_fram.png";
 import FoodieFrame from "../img/Foodie_fram.png";
 import DramaFrame from "../img/Drama_fram.png";
+import { FormProvider, useForm1 } from "../context/formContext";
 
 export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack: () => void }){
   const [selectedFrame, setSelectedFrame] = useState<string | null>(null);
   const [gender, setGender] = useState<string | null>(null);
   const [isAvatarSelected, setIsAvatarSelected] = useState(false);
+  const { formData, updateForm } = useForm1();
 
   useEffect(() => {
     const storedGender = localStorage.getItem("selectedGender");
@@ -37,6 +39,8 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
   setIsAvatarSelected(true);
   setSelectedFrame(frameSrc);
   console.log("Avatar frame stored:", frameSrc);
+  let Avatar = "K-Drama";
+  updateForm("style",Avatar);
 };
 
   var settings = {
