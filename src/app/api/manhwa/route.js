@@ -52,7 +52,7 @@ export const config = {
     },
 };
 
-async function generateImageBasedOnExisting(inputImagePath, userPrompt, outputImagePath) {
+async function generateImageBasedOnExisting(inputImagePath, userPrompt) {
     try{
         if (!process.env.REPLICATE_API_TOKEN) {
             throw new Error("REPLICATE_API_TOKEN is not defined. Check Vercel environment variables.");
@@ -180,6 +180,8 @@ async function uploadImageBufferToSupabase(buffer, filename) {
     return publicData?.publicUrl || null;
 }
 
+
+
 export async function POST(webRequest) {
     
     const req = await toNodeRequest(webRequest);
@@ -191,53 +193,67 @@ export async function POST(webRequest) {
                 console.error('Form Parsing Error:', err);
                 return resolve(createErrorResponse('Failed to parse form data.'));
             }
+
             const username = fields.username?.[0];
             const gender = fields.gender?.[0];
             const imageFile = files.image?.[0];
             const style = fields.style?.[0];
-            const userprompt = getFullPrompt(style,gender) || "Regenerate this image in Manhwa Style";
-
-            if (!username || !gender || !imageFile || !userprompt) {
-                return resolve(createErrorResponse('Missing required fields.'));
-            }
-            let userImageUrl = null;
-            let processedImagePath = imageFile.filepath; // Start with the original path
             
             try {
-                const imageBufferForUpload = await require('fs').promises.readFile(processedImagePath);
-                const uploadFilename = `${username}-${Date.now()}-user.png`;
-                userImageUrl = await uploadImageToSupabase(imageBufferForUpload, uploadFilename);
-                if (!userImageUrl) {
-                    return resolve(createErrorResponse('Failed to store user image in file server.'));
+
+                if(fields.action?.[0] == "uploadimage"){
+                    let userImageUrl = null;
+                    let processedImagePath = imageFile.filepath;
+                    const imageBufferForUpload = await require('fs').promises.readFile(processedImagePath);
+                    const uploadFilename = `${username}-${Date.now()}-user.png`;
+                    userImageUrl = await uploadImageToSupabase(imageBufferForUpload, uploadFilename);
+                    if (!userImageUrl) {
+                        return resolve(createErrorResponse('Failed to store user image in file server.'));
+                    }
+                    const userprompt = getFullPrompt(style,gender) || "Regenerate this image in Manhwa Style";
+                    resolve(NextResponse.json({ status:'Success', url: userImageUrl, prompt: userprompt, name:username, gender:gender  }));
+    
+                }else if(fields.action?.[0]=="generateimage"){
+                    const userimageurl = fields.userimageurl?.[0] || "";
+                    const userprompt = getFullPrompt(style,gender) || "Regenerate this image in Manhwa Style";
+                    const outputpathurl = await generateImageBasedOnExisting(userimageurl,userprompt);
+                    if(outputpathurl == null){
+                        return resolve(createErrorResponse('Failed to Generate image.'+ErrorMsg));
+                    }
+                    const uploadFilenameg = `${username}-${Date.now()}-generated.png`;
+                    const outputImageUrl = await uploadImageBufferToSupabase(outputpathurl, uploadFilenameg);
+                    resolve(NextResponse.json({ status:'Success', url: outputImageUrl }));
+    
+                }else if(fields.action?.[0]=="save"){
+                    const userimageurl = fields.userimageurl?.[0] || "";
+                    const generatedimageurl = fields.generatedimageurl?.[0] || "";
+                    await insertUserData({ username, gender, userimageurl: userimageurl, outputimageurl: generatedimageurl });
+                    resolve(NextResponse.json({ status: 'Success', message: 'Data Saved Successfully!.' }));
+    
+                }else{
+                    resolve(NextResponse.json({ status: 'Invalid Action' }));
                 }
-                const outputpathurl = await generateImageBasedOnExisting(userImageUrl,userprompt,processedImagePath);
-                if(outputpathurl == null){
-                    return resolve(createErrorResponse('Failed to Generate image.'+ErrorMsg));
-                }
-                //const imageBufferForUploadg = await require('fs').promises.readFile(outputpathurl);
-                const uploadFilenameg = `${username}-${Date.now()}-generated.png`;
-                const outputImageUrl = await uploadImageBufferToSupabase(outputpathurl, uploadFilenameg);
-                await insertUserData({ username, gender, userimageurl: userImageUrl, outputimageurl: outputImageUrl });
-                resolve(NextResponse.json({ url: outputImageUrl }));
+                
             } catch (e) {
                 debugger
                 resolve(createErrorResponse(`Image processing failed: ${e.message || 'Unknown error'}`));
-            } finally {
-                if (imageFile?.filepath) {
-                    try {
-                        await unlink(imageFile.filepath);
-                    } catch (unlinkErr) {
-                        console.error('Error deleting original temporary file:', unlinkErr);
-                    }
-                }
-                if (processedImagePath !== imageFile?.filepath && processedImagePath) {
-                    try {
-                        await unlink(processedImagePath);
-                    } catch (unlinkErr) {
-                        console.error('Error deleting converted temporary file:', unlinkErr);
-                    }
-                }
-            }
+            } 
+            // finally {
+            //     if (imageFile?.filepath) {
+            //         try {
+            //             await unlink(imageFile.filepath);
+            //         } catch (unlinkErr) {
+            //             console.error('Error deleting original temporary file:', unlinkErr);
+            //         }
+            //     }
+            //     if (processedImagePath !== imageFile?.filepath && processedImagePath) {
+            //         try {
+            //             await unlink(processedImagePath);
+            //         } catch (unlinkErr) {
+            //             console.error('Error deleting converted temporary file:', unlinkErr);
+            //         }
+            //     }
+            // }
         });
     });
 }

@@ -17,11 +17,12 @@ export default function Explore(){
   const { formData } = useForm1();
   const [hasOpened, setHasOpened] = useState(false);
   const [downloadSrc, setdownloadSrc] = useState(Download.src);
-  if (formData.file && !hasOpened) {
-    // window.open(formData.file, '_blank');
-    setdownloadSrc(formData.file);
-    setHasOpened(true);
-  }
+  useEffect(() => {
+    if (formData.file && !hasOpened) {
+      setdownloadSrc(formData.file);
+      setHasOpened(true); // ✅ prevent rerun
+    }
+  }, []);
   
   const handleDownload = async () => {
     if (!divRef.current) return;
