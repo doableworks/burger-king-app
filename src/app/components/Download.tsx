@@ -40,14 +40,10 @@ async function fetchResponse(action: string, userimageurl: string, generatedimag
 }
 
 export default function Download({ onNext }: { onNext: () => void }) {
-  const { formData, updateformData } = useForm1(); // ✅ use hook only inside component
+  const { formData, updateForm } = useForm1();
   const [jobId, setJobId] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [status, setStatus] = useState<string>("");
-
-
-  
-
   useEffect(() => {
     (async () => {
       console.log(new Date().toString());
@@ -61,7 +57,6 @@ export default function Download({ onNext }: { onNext: () => void }) {
 
   const startJob = async (imageurl:string, prompt:string,name:string, gender:string ) => {
     setStatus("starting");
-  
     const res = await fetch("/api/job-start", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -88,10 +83,12 @@ export default function Download({ onNext }: { onNext: () => void }) {
       setStatus(data.status);
   
       if (data.status === "success") {
-        updateformData("file",data.result);
         setImageUrl(data.result);
         clearInterval(interval);
+        console.log(data.result);
+        updateForm("file",data.result);
         document.getElementById('downloadbtn')?.click();
+        
       } else if (data.status === "error") {
         console.error(data.error);
         clearInterval(interval);

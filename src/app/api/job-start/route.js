@@ -90,7 +90,6 @@ export async function POST(request) {
       const uploadFilenameg = `${username}-${Date.now()}-generated.png`;
       const outputImageUrl = await uploadImageToSupabase(imageBuffer, uploadFilenameg);
       await insertUserData({ username, gender, userimageurl: image, outputimageurl: outputImageUrl });
-      debugger
       console.log(output[0].url());
       completeJob(jobId, outputImageUrl);
     } catch (err) {
