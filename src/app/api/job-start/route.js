@@ -71,13 +71,15 @@ export async function POST(request) {
           prompt,
           width: 1024,
           height: 1024,
-          scheduler: "KarrasDPM",
-          num_outputs: 1,
-          guidance_scale: 7.5,
-          apply_watermark: true,
-          negative_prompt: "worst quality, low quality",
-          prompt_strength: 0.8,
-          num_inference_steps: 60
+          lora_weights: "huggingface.co/UstadPrince/manhwa_male_new",
+          // lora_scale: 1.2,
+          // prompt_strength: 0.8,
+          // scheduler: "KarrasDPM",
+          // num_outputs: 1,
+          // guidance_scale: 3.5,
+          // apply_watermark: true,
+          // negative_prompt: "worst quality, low quality",
+          // num_inference_steps: 60
         },
       });
 
