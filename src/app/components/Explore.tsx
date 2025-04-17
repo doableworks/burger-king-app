@@ -26,8 +26,11 @@ export default function Explore(){
   
   const handleDownload = async () => {
     if (!divRef.current) return;
-
-    const canvas = await html2canvas(divRef.current);
+    const canvas = await html2canvas(divRef.current,{ 
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: null,
+  });
     const dataURL = canvas.toDataURL('image/png');
 
     const link = document.createElement('a');
