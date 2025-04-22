@@ -6,7 +6,7 @@ import HeaderLogo from "../img/home_logo.png";
 import HomeBanner from "../img/home_banner.png";
 import DownArrow from "../img/down_arrow.png";
 import KingLogo from "../img/king_logo.svg";
-import CentrePhoto from "../img/centre_photo.png";
+import CentrePhoto from "../img/centre_photo.gif";
 import { useForm } from "react-hook-form";
 import { FormProvider, useForm1 } from '@/app/context/formContext'; // ✅
 
