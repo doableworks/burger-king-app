@@ -107,7 +107,7 @@ export async function POST(request) {
             width: 768,
             height: 768,
             prompt: prompt,
-            lora_scale: 1,
+            lora_scale: 2,
             spatial_img: image,
             control_type: "Manhwa"
           }
