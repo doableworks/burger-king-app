@@ -66,40 +66,59 @@ export async function POST(request) {
   (async () => {
     
     try {
-      const output = await replicate.run(model, {
-        input: {
-          image,
-          prompt,
-          width: 1024,
-          height: 1024,
-          lora_weights: "huggingface.co/UstadPrince/manhwa_male_new",
-          num_outputs: 1,
-          aspect_ratio: "1:1",
-          output_format: "webp",
-          guidance_scale: 3.5,
-          output_quality: 80,
-          prompt_strength: 0.8,
-          num_inference_steps: 28,
+      
+      // const output = await replicate.run(model, {
+      //   input: {
+      //     image,
+      //     prompt,
+      //     width: 1024,
+      //     height: 1024,
+      //     lora_weights: "huggingface.co/UstadPrince/manhwa_male_new",
+      //     num_outputs: 1,
+      //     aspect_ratio: "1:1",
+      //     output_format: "webp",
+      //     guidance_scale: 3.5,
+      //     output_quality: 80,
+      //     prompt_strength: 0.8,
+      //     num_inference_steps: 28,
 
-          // lora_scale: 1.2,
-          // prompt_strength: 0.8,
-          // scheduler: "KarrasDPM",
-          // num_outputs: 1,
-          // guidance_scale: 3.5,
-          // apply_watermark: true,
-          // negative_prompt: "worst quality, low quality",
-          // num_inference_steps: 60
-        },
-      });
-
-      if (!output || !Array.isArray(output) || !output[0]) {
-        throw new Error("Replicate returned no valid output.");
-      }
-      const imageUrl = output[0];
-      const response = await axios.get(imageUrl, { responseType: "arraybuffer" });
-      const imageBuffer = Buffer.from(response.data);
-      const uploadFilenameg = `${username}-${Date.now()}-generated.png`;
-      const outputImageUrl = await uploadImageToSupabase(imageBuffer, uploadFilenameg);
+      //     // lora_scale: 1.2,
+      //     // prompt_strength: 0.8,
+      //     // scheduler: "KarrasDPM",
+      //     // num_outputs: 1,
+      //     // guidance_scale: 3.5,
+      //     // apply_watermark: true,
+      //     // negative_prompt: "worst quality, low quality",
+      //     // num_inference_steps: 60
+      //   },
+      // });
+      
+      //Latest Code
+      const output = await replicate.run(
+        model,
+        {
+          input: {
+            seed: 42,
+            width: 768,
+            height: 768,
+            prompt: prompt,
+            lora_scale: 1,
+            spatial_img: image,
+            control_type: "Manhwa"
+          }
+        }
+      );
+      debugger
+      console.log(output.url());
+      // if (!output || !Array.isArray(output) || !output[0]) {
+      //   throw new Error("Replicate returned no valid output.");
+      // }
+      const imageUrl = output.url();
+      // const response = await axios.get(imageUrl.href, { responseType: "arraybuffer" });
+      // const imageBuffer = Buffer.from(response.data);
+      // const uploadFilenameg = `${username}-${Date.now()}-generated.png`;
+      // const outputImageUrl = await uploadImageToSupabase(imageBuffer, uploadFilenameg);
+      const outputImageUrl = imageUrl.href;
       await insertUserData({ username, gender, userimageurl: image, outputimageurl: outputImageUrl });
       console.log(output[0].url());
       completeJob(jobId, outputImageUrl);

@@ -22,21 +22,21 @@ function getFullPrompt(style, gender) {
     if (styleData && styleData[style]) {
       const styleSpecificData = styleData[style];
       const prompt = styleSpecificData[gender.toLowerCase()];
-      const background = styleSpecificData.backgrounds;
+      //const background = styleSpecificData.backgrounds;
   
-      if (prompt && background) {
-        const randomPrompt = prompt[Math.floor(Math.random() * prompt.length)];
-        const randomBackground = background[Math.floor(Math.random() * background.length)];
-        return `${randomPrompt} Background: ${randomBackground}`;
-      } else if (prompt) {
-        return prompt[Math.floor(Math.random() * prompt.length)];
-      } else if (background) {
-        return `Background: ${background[Math.floor(Math.random() * background.length)]}`;
-      } else {
-        return "No prompts or backgrounds found for this style and gender.";
-      }
+    //   if (prompt && background) {
+        if(prompt){
+
+            const randomPrompt = prompt[Math.floor(Math.random() * prompt.length)];
+            // const randomBackground = background[Math.floor(Math.random() * background.length)];
+            //return `${randomPrompt} Background: ${randomBackground}`;
+            return `${randomPrompt}`;
+        } 
+        else {
+            return "Make a Manhwa style.";
+        }
     } else {
-      return "Style not found.";
+        return "Make a Manhwa style.";
     }
   }
 

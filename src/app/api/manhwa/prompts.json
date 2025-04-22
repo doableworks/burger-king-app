@@ -1,66 +1,50 @@
 {
-    "styles": [
-      {
-        "K-Drama":{
+  "styles": [
+    {
+      "K-Drama":{
         "male":[
-            "Transform this man into a K-drama protagonist. Maintain his exact facial structure (jawline, nose, eye shape) but style him in a tailored beige trench coat over a black turtleneck. Soft cinematic lighting, neutral tones, and a slight misty effect. NO facial alterations—only refine skin texture and add subtle contouring for a polished look."
-          ],
-        "female":[
-            "Convert this woman into a K-drama heroine. Preserve her natural features (especially her eye shape and lip contour) but give her sleek black hair with a middle part and a cream-colored wool coat. Lighting: warm golden-hour glow. Keep her expression serene and elegant."
-            
-          ],
-        "backgrounds": [
-            "Bustling City Streets at Night (neon signs, street food stalls, glowing shopfronts)"
-            
-          ]
-        },
-      
-        "K-Pop":{
-    "male": [
-        "Style this man as a K-pop idol. Retain his bone structure but add platinum blonde hair styled in a messy undercut, silver ear cuffs, and a cropped black leather jacket. Dramatic stage lighting with purple/blue neon highlights."
-        
-      ],
-      "female": [
-        "Transform this woman into a K-pop star. Keep her original face shape but give her ash-brown wolf-cut hair, glitter eyelids, and a pastel pink crop top with sequin shorts. Lighting: vibrant holographic reflections."
-        
-      ],
-        "backgrounds": [
-            "Elaborate Music Video Sets (thematic, colorful, often with multiple changing backdrops)"
-            
-          ]
-        },
-        
-      
-        "K-Foodie":{
-"male": [
-        "Turn this man into a Korean street food enthusiast. Preserve his exact face but dress him in a navy hoodie with rolled sleeves, holding a sizzling hotteok (pancake). Background: a bustling Gwangjang Market stall at dusk."
-        
-      ],
-      "female": [
-        "Convert this woman into a K-foodie vlogger. Maintain her facial features but style her in a pastel apron over a striped tee, gripping chopsticks with kimchi pancakes. Background: a brightly lit studio kitchen with vlogging equipment."
-        
-      ],
-       "backgrounds": [
-            "Bustling Traditional Markets (Gwangjang, Namdaemun) - overflowing with colorful food stalls, vendors, and people"
-            
-          ]
-        },
-        
-      
-        "Manhwa":{
-"male": [
-        "Reimagine this man in a Korean webtoon style. Keep his jawline and eye shape identical but render with sharp black line art, mint-green hair (tousled), and a denim jacket with comic-style shading. Add subtle blush on his cheeks and sharp highlights in his eyes."
-        
-      ],
-      "female": [
-        "Transform this woman into a Manhwa character. Preserve her mole and eye shape but draw with thick outline art, coral-pink wavy hair, and a oversized sweater. Add subtle sparkle to her eyes and soft blush on her cheeks."
-        
-      ],
-      "backgrounds": [
-            "Detailed Cityscapes (often Seoul) - showcasing modern architecture, bustling streets, and iconic landmarks (N Seoul Tower, Han River)"
-            
-          ]
-        }
-      }
+            "Turn this bald, brown-skinned man with a long gray beard and glasses into a K-drama manhwa-style character. Preserve his facial structure: the round head, distinguished beard, and glasses — with a refined update to the frames for a modern touch. Render his eyes deep and expressive with a subtle sadness or calm. Keep the wrinkles and beard intact, stylized in clean Manhwa linework. Style him in a long dark coat or tailored formalwear typical of K-drama protagonists. The background should be a moody Seoul alley at night, glowing with soft neon lights or gentle rain reflections. Convey a deep emotional aura while staying true to his original appearance."
+        ],
+      "female":[
+          "Turn this bald, brown-skinned woman into a K-drama manhwa-style character. Keep her facial identity intact — from the natural contours of her face to any wrinkles or distinctive features. Add softly flowing hair, styled modestly, and minimal but refined makeup. Her eyes should reflect calm or sorrow, in the emotional and elegant tone of a K-drama heroine. Dress her in a sleek coat or elegant layered outfit, subtle in color. Use a soft, rainy Seoul night background with muted neon glow or city lights. The mood should be introspective and emotional, true to K-drama tones while preserving her original look."
+
+        ]
+      },
+
+      "K-Pop":{
+  "male": [
+      "Turn this bald, brown-skinned man with a long gray beard and glasses into a K-pop manhwa-style character. Maintain strong facial resemblance: his round head shape, thick beard (styled smoothly and sharply like a pop icon), and glasses — but update the frames to look modern and sleek. Make his eyes expressive and charismatic, classic manhwa style but still grounded in realism. Give him a bright smile and clean, glowing skin. Dress him in a black, stylish performance outfit with layered silver chains and rings. Place a vibrant K-pop stage in the background with red neon lights and dramatic spotlights for a high-energy performance vibe. Emphasize idol confidence and coolness while preserving the original character and facial features."
+
+    ],
+    "female": [
+      "Turn this bald, brown-skinned woman into a K-pop manhwa-style female idol. Maintain strong facial resemblance: her natural face shape, soft cheekbones, and distinctive features. Add elegant, flowing hair and update her look with sleek earrings and glam makeup that enhances her original features. Make her eyes expressive and bright, in classic manhwa style, with a confident smile and glowing fair skin. Dress her in a bold, black K-pop stage outfit—stylish, with shimmering accents and silver accessories. The background should feature red neon concert lighting with glowing signage and spotlights, capturing the power and charm of a K-pop star. Preserve her facial identity while elevating her with idol energy."
+
     ]
+      },
+
+
+      "K-Foodie":{
+"male": [
+      "Turn this bald, brown-skinned man with a long gray beard and glasses into a warm, inviting K-Foodie manhwa-style character. Maintain facial resemblance with his rounded face, full beard (styled neatly), and glasses (updated to a trendy, café-style look). Give him a calm, content expression and fair glowing skin. Dress him in a casual Korean café outfit—an apron over a stylish shirt, or smart-casual wear. The background should show a modern, cozy Korean restaurant or food alley with subtle food elements (posters, menu boards). Emphasize warmth, food culture, and friendly charm while preserving his original face."
+
+    ],
+    "female": [
+      "Turn this bald, brown-skinned woman into a charming K-Foodie manhwa-style female character. Keep her facial structure and features true to the original, with added fair skin and a soft smile. Add natural, elegant hair and minimal glam. Dress her in a trendy café or street food vendor outfit—apron, skirt, or cute casuals. The background should depict a vibrant Korean eatery, with posters or dishes subtly in frame, avoiding direct food interaction. Capture culinary charm, friendliness, and authenticity while preserving her identity and age."
+
+    ]
+      },
+
+
+      "Manhwa":{
+"male": [
+      "Turn this bald, brown-skinned man with a long gray beard and glasses into a powerful K-Manhwa superhero-style character. Keep all defining features intact—his round face, prominent beard (stylized sharply like a fantasy warrior), and glasses (modernized into armored frames or mystical lenses). Render his eyes intense and commanding. Skin should be fair and glowing. Dress him in a dark tactical fantasy outfit—armored, glowing with energy lines or magical runes. One hand may be summoning energy or holding a powerful relic. Set him against a glowing red magical battlefield or stormy neon skyline. Preserve all facial features while presenting him as a legendary figure."
+
+    ],
+    "female": [
+      "Turn this bald, brown-skinned woman into a fierce K-Manhwa-style female warrior. Keep her facial identity exact, highlighting her cheek structure and wrinkles if any. Add long, dramatic hair flowing with motion. Her eyes should be piercing and strong, stylized with bold lines and glowing pupils. Give her glowing fair skin and dress her in a combat-ready outfit—sleek, armored, or enchanted, with glowing accents. The background should be a magical battlefield or city skyline lit with red and violet energy. Capture power and elegance while preserving her original face and age."
+
+    ]
+      }
+    }
+  ]
 }
