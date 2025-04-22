@@ -203,51 +203,7 @@ async function promptGenerate(processedImagePath, mimeType) {
       model: process.env.GEMINIModel,
       contents: [
         createUserContent([
-          `When transforming any real person or photo into a K-pop / Manhwa-style character, follow these instructions and output ONLY a final single prompt ready for generation, no summaries or paragraphs.
-
-Instructions:
-
-Gender Identification: Identify gender presentation (masculine, feminine, androgynous).
-
-Age & Build: Estimate age and body type (e.g., early 20s, slim, muscular).
-
-Facial Features: Include:
-
-Jawline, cheekbones, nose, eyes, eyebrows
-
-Facial hair description
-
-Skin tone and texture
-
-Hair
-(length, style)
-
-Stylization:
-
-Manhwa/K-pop style: large expressive eyes, smooth clear skin, light blush, soft shadows.
-
-Keep important features recognizable (like beard, hairline, eyebrow shape).
-
-Add soft makeup: eyeliner, lip tint, light highlights.
-
-Accessories:
-
-Always: small hoop earrings in both ears + a sleek mic headset.
-
-Optionally: rings, bracelets, chains if it fits the vibe.
-
-Clothing:
-
-Enhance existing clothing with stylish details (light texture, gloss, glow).
-
-Background:
-
-Dreamy
-colorful gradients, stage lights, or soft spotlight settings.
-
-User Prompt Integration:
-
-Always add whatever the user specifies at the end (like "make him look like a K-pop dancer" or "add glowing hands").`,
+          process.env.systemPrompt,
           createPartFromUri(image.uri, image.mimeType),
         ]),
       ],
