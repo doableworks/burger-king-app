@@ -209,8 +209,9 @@ async function promptGenerate(processedImagePath, mimeType, userprompt) {
       ],
     });
     console.log(response.text);
-    const updatedPrompt = userprompt.replace("[Insert facial identity description here]", response.text);
-    return updatedPrompt;
+    // const updatedPrompt = userprompt.replace("[Insert facial identity description here]", response.text);
+    // return updatedPrompt;
+    return response.text;
   }
 
 
