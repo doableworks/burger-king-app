@@ -95,6 +95,7 @@ export default function Download({ onNext }: { onNext: () => void }) {
         alert("Something Went Wrong Please Try Again.");
         console.error(data.error);
         clearInterval(interval);
+        window.location.reload();
       }
     }, 3000); // poll every 3 seconds
   

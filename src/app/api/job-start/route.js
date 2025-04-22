@@ -71,7 +71,7 @@ export async function POST(request) {
   (async () => {
     
     try {
-      
+      failJob(jobId, "Unknown error");
       // const output = await replicate.run(model, {
       //   input: {
       //     image,
