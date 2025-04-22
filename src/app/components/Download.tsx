@@ -57,6 +57,8 @@ export default function Download({ onNext }: { onNext: () => void }) {
 
   const startJob = async (imageurl:string, prompt:string,name:string, gender:string ) => {
     setStatus("starting");
+    console.log("Image URL:", imageurl);
+    alert("Image URL: "+ imageurl);
     const res = await fetch("/api/job-start", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
