@@ -10,6 +10,11 @@ import fs from 'fs/promises';
 import sharp from 'sharp'; // Import the sharp library for image processing
 import Replicate from "replicate";
 import promptData from "./prompts.json"
+import { GoogleGenAI, createUserContent, createPartFromUri } from "@google/genai";
+import fetch from "node-fetch";
+
+
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINIAPIKEY });
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
@@ -180,6 +185,61 @@ async function uploadImageBufferToSupabase(buffer, filename) {
     return publicData?.publicUrl || null;
 }
 
+async function promptGenerate(processedImagePath, mimeType) {
+    // const url = "https://vzgwpzccjffstvxfjqvq.supabase.co/storage/v1/object/public/burger-king/user-uploads/Harsh-1745316025451-user.png";
+  
+    const image = await ai.files.upload({
+      file: processedImagePath,
+      config: { mimeType :  mimeType }
+    });
+  debugger
+    // const myfile = await ai.files.upload({
+    //   file: path.join(media, url),
+    //   config: { mimeType: "image/png" },
+    // });
+    // console.log("Uploaded file:", myfile);
+  
+    const response = await ai.models.generateContent({
+      model: process.env.GEMINIModel,
+      contents: [
+        createUserContent([
+          `When transforming any real person or photo into a K-pop / Manhwa-style character, follow these instructions and give in paragraph like a story:
+
+1. *Gender Identification:* First, identify and clearly describe the person's gender presentation based on appearance. Adjust styling accordingly (e.g., masculine, feminine, androgynous).
+
+2. *Age & Build:* Estimate and describe the person's apparent age and physical build (e.g., early 20s, slim/muscular, etc.).
+
+3. *Facial Features:* Accurately describe:
+   - Jawline, cheekbones, nose, eyes, eyebrows
+   - Facial hair (mustache, beard, stubble, clean-shaven)
+   - Skin tone and texture
+   - Hair (length, style, grooming)
+
+4. *Stylization (Manhwa/K-pop):*
+   - Convert face into manhwa style with large expressive eyes, clear smooth skin, light blush, and soft shadows.
+   - Retain recognizable features (e.g., beard, hairstyle, eyebrow shape).
+   - Add soft makeup where fitting (eyeliner, lip tint, highlight).
+
+5. *Accessories:*
+   - Always add: small hoop earrings (both ears unless specified), a sleek mic headset.
+   - Optionally add rings, bracelets, or chains if appropriate.
+
+6. *Clothing:*
+   - Keep base clothing style but enhance with stylish touches (e.g., subtle gloss, light textures, soft glow).
+   - Do not drastically change the outfit unless requested.
+
+7. *Background:*
+   - Use dynamic or dreamy settings like concert stages, spotlight lighting, colored gradients, or soft glows.
+
+8. *Prompt Integration:*
+   - Always consider the user’s specific prompt and include this directly into the transformation:`,
+          createPartFromUri(image.uri, image.mimeType),
+        ]),
+      ],
+    });
+    console.log(response.text);
+    return response.text;
+  }
 
 
 export async function POST(webRequest) {
@@ -204,14 +264,18 @@ export async function POST(webRequest) {
                 if(fields.action?.[0] == "uploadimage"){
                     let userImageUrl = null;
                     let processedImagePath = imageFile.filepath;
+                    debugger
                     const imageBufferForUpload = await require('fs').promises.readFile(processedImagePath);
                     const uploadFilename = `${username}-${Date.now()}-user.png`;
                     userImageUrl = await uploadImageToSupabase(imageBufferForUpload, uploadFilename);
                     if (!userImageUrl) {
                         return resolve(createErrorResponse('Failed to store user image in file server.'));
                     }
+                    debugger
+                    const GeminiPrompt = await promptGenerate(processedImagePath,imageFile.mimetype);
+                    debugger
                     const userprompt = getFullPrompt(style,gender) || "Regenerate this image in Manhwa Style";
-                    resolve(NextResponse.json({ status:'Success', url: userImageUrl, prompt: userprompt, name:username, gender:gender  }));
+                    resolve(NextResponse.json({ status:'Success', url: userImageUrl, prompt: GeminiPrompt, name:username, gender:gender  }));
     
                 }else if(fields.action?.[0]=="generateimage"){
                     const userimageurl = fields.userimageurl?.[0] || "";
