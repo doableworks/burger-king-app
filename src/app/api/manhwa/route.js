@@ -242,11 +242,13 @@ export async function POST(webRequest) {
                     if (!userImageUrl) {
                         return resolve(createErrorResponse('Failed to store user image in file server.'));
                     }
-                    debugger
+                    
                     const GeminiPrompt = await promptGenerate(processedImagePath,imageFile.mimetype);
-                    debugger
+                    
                     const userprompt = getFullPrompt(style,gender) || "Regenerate this image in Manhwa Style";
-                    resolve(NextResponse.json({ status:'Success', url: userImageUrl, prompt: GeminiPrompt, name:username, gender:gender  }));
+                    userprompt.replace("[Insert facial identity description here]",GeminiPrompt);
+
+                    resolve(NextResponse.json({ status:'Success', url: userImageUrl, prompt: userprompt, name:username, gender:gender  }));
     
                 }else if(fields.action?.[0]=="generateimage"){
                     const userimageurl = fields.userimageurl?.[0] || "";
