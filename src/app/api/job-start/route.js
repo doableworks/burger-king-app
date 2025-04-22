@@ -120,7 +120,7 @@ export async function POST(request) {
       // const outputImageUrl = await uploadImageToSupabase(imageBuffer, uploadFilenameg);
       const outputImageUrl = imageUrl.href;
       await insertUserData({ username, gender, userimageurl: image, outputimageurl: outputImageUrl });
-      console.log(output[0].url());
+      // console.log(output[0].url());
       completeJob(jobId, outputImageUrl);
     } catch (err) {
       debugger
