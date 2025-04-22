@@ -203,36 +203,51 @@ async function promptGenerate(processedImagePath, mimeType) {
       model: process.env.GEMINIModel,
       contents: [
         createUserContent([
-          `When transforming any real person or photo into a K-pop / Manhwa-style character, follow these instructions and give in paragraph like a story:
+          `When transforming any real person or photo into a K-pop / Manhwa-style character, follow these instructions and output ONLY a final single prompt ready for generation, no summaries or paragraphs.
 
-1. *Gender Identification:* First, identify and clearly describe the person's gender presentation based on appearance. Adjust styling accordingly (e.g., masculine, feminine, androgynous).
+Instructions:
 
-2. *Age & Build:* Estimate and describe the person's apparent age and physical build (e.g., early 20s, slim/muscular, etc.).
+Gender Identification: Identify gender presentation (masculine, feminine, androgynous).
 
-3. *Facial Features:* Accurately describe:
-   - Jawline, cheekbones, nose, eyes, eyebrows
-   - Facial hair (mustache, beard, stubble, clean-shaven)
-   - Skin tone and texture
-   - Hair (length, style, grooming)
+Age & Build: Estimate age and body type (e.g., early 20s, slim, muscular).
 
-4. *Stylization (Manhwa/K-pop):*
-   - Convert face into manhwa style with large expressive eyes, clear smooth skin, light blush, and soft shadows.
-   - Retain recognizable features (e.g., beard, hairstyle, eyebrow shape).
-   - Add soft makeup where fitting (eyeliner, lip tint, highlight).
+Facial Features: Include:
 
-5. *Accessories:*
-   - Always add: small hoop earrings (both ears unless specified), a sleek mic headset.
-   - Optionally add rings, bracelets, or chains if appropriate.
+Jawline, cheekbones, nose, eyes, eyebrows
 
-6. *Clothing:*
-   - Keep base clothing style but enhance with stylish touches (e.g., subtle gloss, light textures, soft glow).
-   - Do not drastically change the outfit unless requested.
+Facial hair description
 
-7. *Background:*
-   - Use dynamic or dreamy settings like concert stages, spotlight lighting, colored gradients, or soft glows.
+Skin tone and texture
 
-8. *Prompt Integration:*
-   - Always consider the user’s specific prompt and include this directly into the transformation:`,
+Hair
+(length, style)
+
+Stylization:
+
+Manhwa/K-pop style: large expressive eyes, smooth clear skin, light blush, soft shadows.
+
+Keep important features recognizable (like beard, hairline, eyebrow shape).
+
+Add soft makeup: eyeliner, lip tint, light highlights.
+
+Accessories:
+
+Always: small hoop earrings in both ears + a sleek mic headset.
+
+Optionally: rings, bracelets, chains if it fits the vibe.
+
+Clothing:
+
+Enhance existing clothing with stylish details (light texture, gloss, glow).
+
+Background:
+
+Dreamy
+colorful gradients, stage lights, or soft spotlight settings.
+
+User Prompt Integration:
+
+Always add whatever the user specifies at the end (like "make him look like a K-pop dancer" or "add glowing hands").`,
           createPartFromUri(image.uri, image.mimeType),
         ]),
       ],
