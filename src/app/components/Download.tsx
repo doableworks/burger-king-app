@@ -90,6 +90,7 @@ export default function Download({ onNext }: { onNext: () => void }) {
         document.getElementById('downloadbtn')?.click();
         
       } else if (data.status === "error") {
+        alert("Something Went Wrong Please Try Again.");
         console.error(data.error);
         clearInterval(interval);
       }

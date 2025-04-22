@@ -64,6 +64,7 @@ export async function POST(request) {
 
   // Run background task
   (async () => {
+    
     try {
       const output = await replicate.run(model, {
         input: {
@@ -79,7 +80,7 @@ export async function POST(request) {
           output_quality: 80,
           prompt_strength: 0.8,
           num_inference_steps: 28,
-          
+
           // lora_scale: 1.2,
           // prompt_strength: 0.8,
           // scheduler: "KarrasDPM",
