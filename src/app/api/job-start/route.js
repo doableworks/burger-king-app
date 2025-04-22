@@ -35,7 +35,12 @@ async function uploadImageToSupabase(buffer, filename) {
 
     return publicData?.publicUrl || null;
 }
-
+async function getImageBuffer(imageUrl) {
+  const response = await fetch(imageUrl);
+  const arrayBuffer = await response.arrayBuffer();
+  const buffer = Buffer.from(arrayBuffer);
+  return buffer;
+}
 async function insertUserData({ username, gender, userimageurl, outputimageurl }) {
     const { error } = await supabase.from(TableName).insert([
         {
@@ -108,20 +113,25 @@ export async function POST(request) {
           }
         }
       );
-      debugger
+     
       console.log(output.url());
-      // if (!output || !Array.isArray(output) || !output[0]) {
-      //   throw new Error("Replicate returned no valid output.");
-      // }
       const imageUrl = output.url();
-      // const response = await axios.get(imageUrl.href, { responseType: "arraybuffer" });
-      // const imageBuffer = Buffer.from(response.data);
-      // const uploadFilenameg = `${username}-${Date.now()}-generated.png`;
-      // const outputImageUrl = await uploadImageToSupabase(imageBuffer, uploadFilenameg);
-      const outputImageUrl = imageUrl.href;
-      await insertUserData({ username, gender, userimageurl: image, outputimageurl: outputImageUrl });
-      // console.log(output[0].url());
-      completeJob(jobId, outputImageUrl);
+      const response = await fetch(imageUrl.href);
+
+      if (!response.ok) {
+        const outputImageUrl = imageUrl.href;
+        await insertUserData({ username, gender, userimageurl: image, outputimageurl: outputImageUrl });
+        completeJob(jobId, outputImageUrl);
+      }else{
+        const arrayBuffer = await response.arrayBuffer();
+        const buffer = Buffer.from(arrayBuffer);
+        const uploadFilenameg = `${username}-${Date.now()}-generated.png`;
+        const outputImageUrl = await uploadImageToSupabase(buffer, uploadFilenameg);
+        await insertUserData({ username, gender, userimageurl: image, outputimageurl: outputImageUrl });
+        completeJob(jobId, outputImageUrl);
+      }
+
+      
     } catch (err) {
       debugger
       console.error("Job failed:", err);
