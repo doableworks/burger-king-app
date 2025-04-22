@@ -243,7 +243,7 @@ export async function POST(webRequest) {
                     if (!userImageUrl) {
                         return resolve(createErrorResponse('Failed to store user image in file server.'));
                     }
-                    const userprompt = getFullPrompt(style,gender) || "Regenerate this image in Manhwa Style";
+                    var userprompt = getFullPrompt(style,gender) || "Regenerate this image in Manhwa Style";
                     const GeminiPrompt = await promptGenerate(processedImagePath,imageFile.mimetype,userprompt);
                     
                     
