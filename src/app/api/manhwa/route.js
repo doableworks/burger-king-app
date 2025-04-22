@@ -185,7 +185,7 @@ async function uploadImageBufferToSupabase(buffer, filename) {
     return publicData?.publicUrl || null;
 }
 
-async function promptGenerate(processedImagePath, mimeType) {
+async function promptGenerate(processedImagePath, mimeType, userprompt) {
     // const url = "https://vzgwpzccjffstvxfjqvq.supabase.co/storage/v1/object/public/burger-king/user-uploads/Harsh-1745316025451-user.png";
   
     const image = await ai.files.upload({
@@ -209,7 +209,8 @@ async function promptGenerate(processedImagePath, mimeType) {
       ],
     });
     console.log(response.text);
-    return response.text;
+    const updatedPrompt = userprompt.replace("[Insert facial identity description here]", response.text);
+    return updatedPrompt;
   }
 
 
@@ -242,13 +243,13 @@ export async function POST(webRequest) {
                     if (!userImageUrl) {
                         return resolve(createErrorResponse('Failed to store user image in file server.'));
                     }
-                    
-                    const GeminiPrompt = await promptGenerate(processedImagePath,imageFile.mimetype);
-                    
                     const userprompt = getFullPrompt(style,gender) || "Regenerate this image in Manhwa Style";
-                    userprompt.replace("[Insert facial identity description here]",GeminiPrompt);
+                    const GeminiPrompt = await promptGenerate(processedImagePath,imageFile.mimetype,userprompt);
+                    
+                    
+                    
 
-                    resolve(NextResponse.json({ status:'Success', url: userImageUrl, prompt: userprompt, name:username, gender:gender  }));
+                    resolve(NextResponse.json({ status:'Success', url: userImageUrl, prompt: GeminiPrompt, name:username, gender:gender  }));
     
                 }else if(fields.action?.[0]=="generateimage"){
                     const userimageurl = fields.userimageurl?.[0] || "";
