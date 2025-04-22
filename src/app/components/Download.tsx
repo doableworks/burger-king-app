@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import CustomButton from "./CustomButton";
 import styles from "../../styles/pages/home.module.scss";
 import Grnderbanner from "../img/korean_art.jpg";
-import AlmostDone from "../img/almostDone.png";
+import AlmostDone from "../img/AlmostDone.gif";
 import { FormProvider, useForm1 } from "../context/formContext";
 import kingLogo from "../img/king_logo.svg";
 import { useState } from "react";
