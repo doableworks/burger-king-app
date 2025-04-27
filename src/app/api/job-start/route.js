@@ -108,7 +108,7 @@ export async function POST(request) {
             prompt: prompt,
             spatial_img: image,
             base_prompt: base_prompt,
-            lora_scale: 1.6
+            lora_scale: 2
           }
         }
       );
