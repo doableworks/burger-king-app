@@ -17,6 +17,17 @@ async function fetchResponse(action: string, userimageurl: string, generatedimag
   formDataToSend.append("action", action);
   formDataToSend.append("userimageurl", userimageurl);
   formDataToSend.append("generatedimageurl", generatedimageurl);
+  let prompt = "";
+  if(formData.style == "K-Pop"){
+    prompt = "K-pop manhwa style digital illustration of this image";
+  }
+  else if(formData.style == "K-Drama"){
+    prompt = "K-Drama manhwa style digital illustration of this image";
+  }else if(formData.style == "K-Foodie"){
+    prompt = "K-Foodie manhwa style digital illustration of this image";
+  }else {
+    prompt = "Manhwa style digital illustration of this image";
+  }
 
   try {
     const res = await fetch("/api/manhwa", {
@@ -32,6 +43,7 @@ async function fetchResponse(action: string, userimageurl: string, generatedimag
     }
 
     const data = await res.json();
+    data.prompt = prompt;
     return data;
   } catch (error) {
     console.error("Request failed:", error);
@@ -50,12 +62,12 @@ export default function Download({ onNext }: { onNext: () => void }) {
       console.log("Upload Image:");
       const imageupload = await fetchResponse("uploadimage", "", "", formData);
       if (imageupload?.status === "Success") {
-        await startJob(imageupload.url,imageupload.prompt, imageupload.name, imageupload.gender);
+        await startJob(imageupload.url,imageupload.base_prompt, imageupload.name, imageupload.gender, imageupload.prompt);
       }
     })();
   }, []);
 
-  const startJob = async (imageurl:string, prompt:string,name:string, gender:string ) => {
+  const startJob = async (imageurl:string, base_prompt:string,name:string, gender:string, prompt:string ) => {
     setStatus("starting");
     console.log("Image URL:", imageurl);
     //alert("Image URL: "+ imageurl);
@@ -66,7 +78,8 @@ export default function Download({ onNext }: { onNext: () => void }) {
         image: imageurl,
         prompt: prompt,
         username:name,
-        gender:gender
+        gender:gender,
+        base_prompt:base_prompt
       }),
     });
   

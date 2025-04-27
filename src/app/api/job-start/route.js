@@ -62,7 +62,7 @@ async function insertUserData({ username, gender, userimageurl, outputimageurl }
 export async function POST(request) {
   
   const body = await request.json();
-  const { image, prompt, username, gender } = body;
+  const { image, prompt, username, gender, base_prompt } = body;
 
   const jobId = uuidv4();
   createJob(jobId);
@@ -103,12 +103,13 @@ export async function POST(request) {
         model,
         {
           input: {
-            seed: 42,
-            width: 768,
+            seed: 20,
+            width: 512,
             height: 768,
             prompt: prompt,
-            lora_scale: 2,
             spatial_img: image,
+            lora_scale: 1,
+            base_prompt: base_prompt,
             control_type: "Manhwa"
           }
         }

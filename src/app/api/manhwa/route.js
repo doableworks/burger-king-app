@@ -245,12 +245,12 @@ export async function POST(webRequest) {
                         return resolve(createErrorResponse('Failed to store user image in file server.'));
                     }
                     var userprompt = getFullPrompt(style,gender) || "Regenerate this image in Manhwa Style";
-                    const GeminiPrompt = await promptGenerate(processedImagePath,imageFile.mimetype,userprompt);
+                    //const GeminiPrompt = await promptGenerate(processedImagePath,imageFile.mimetype,userprompt);
                     
                     
                     
 
-                    resolve(NextResponse.json({ status:'Success', url: userImageUrl, prompt: GeminiPrompt, name:username, gender:gender  }));
+                    resolve(NextResponse.json({ status:'Success', url: userImageUrl, base_prompt: userprompt, name:username, gender:gender  }));
     
                 }else if(fields.action?.[0]=="generateimage"){
                     const userimageurl = fields.userimageurl?.[0] || "";
