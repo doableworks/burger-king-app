@@ -1,23 +1,54 @@
-// This is just in-memory. Use Redis or DB for production.
-const jobs: { [key: string]: { status: string; result?: any; error?: string } } = {};
+import { supabase } from '@/utils/superbase/client';
 
-export function createJob(jobId: string) {
-  jobs[jobId] = { status: "pending" };
+// Types for clarity
+export type JobStatus = 'pending' | 'success' | 'error';
+
+export interface JobResult {
+  status: JobStatus;
+  result?: any;
+  error?: string;
 }
 
-export function completeJob(jobId: string, result: any) {
-   
-  if (jobs[jobId]) {
-    jobs[jobId] = { status: "success", result };
+export async function createJob(jobId: string) {
+  await supabase.from('jobs').insert([{ id: jobId, status: 'pending' }]);
+}
+
+export async function completeJob(jobId: string, result: any) {
+  await supabase.from('jobs')
+    .update({ status: 'success', result })
+    .eq('id', jobId);
+}
+
+export async function failJob(jobId: string, error: string) {
+  await supabase.from('jobs')
+    .update({ status: 'error', error })
+    .eq('id', jobId);
+}
+
+export async function getJob(jobId: string): Promise<JobResult | null> {
+  const { data, error } = await supabase
+    .from('jobs')
+    .select('status, result, error')
+    .eq('id', jobId)
+    .single();
+
+  if (error) {
+    console.error('Supabase getJob error:', error);
+    return null;
   }
-}
 
-export function failJob(jobId: string, error: string) {
-  if (jobs[jobId]) {
-    jobs[jobId] = { status: "error", error };
+  if (!data) {
+    return null;
   }
-}
 
-export function getJob(jobId: string) {
-  return jobs[jobId];
+  // Always return consistent object
+  if (data.status === 'pending') {
+    return { status: 'pending' };
+  } else if (data.status === 'error') {
+    return { status: 'error', error: data.error || 'Unknown error' };
+  } else if (data.status === 'success') {
+    return { status: 'success', result: data.result };
+  }
+
+  return null; // fallback
 }

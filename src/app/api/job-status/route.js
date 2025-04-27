@@ -1,28 +1,27 @@
-import { getJob } from "../../lib/jobStore";
+import { getJob } from '../../lib/jobStore';
 
 export async function GET(request) {
-    
   const { searchParams } = new URL(request.url);
-  const jobId = searchParams.get("jobId");
+  const jobId = searchParams.get('jobId');
 
-  if (!jobId || typeof jobId !== "string") {
-    return new Response(JSON.stringify({ error: "Invalid jobId" }), {
+  if (!jobId || typeof jobId !== 'string') {
+    return new Response(JSON.stringify({ error: 'Invalid jobId' }), {
       status: 400,
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
     });
   }
-
-  const job = getJob(jobId);
-
+ 
+  const job = await getJob(jobId); // <-- await is important!
+  
   if (!job) {
-    return new Response(JSON.stringify({ error: "Job not found" }), {
+    return new Response(JSON.stringify({ error: 'Job not found' }), {
       status: 404,
-      headers: { "Content-Type": "application/json" },
+      headers: { 'Content-Type': 'application/json' },
     });
   }
 
   return new Response(JSON.stringify(job), {
     status: 200,
-    headers: { "Content-Type": "application/json" },
+    headers: { 'Content-Type': 'application/json' },
   });
 }

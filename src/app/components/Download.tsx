@@ -94,7 +94,7 @@ export default function Download({ onNext }: { onNext: () => void }) {
     const interval = setInterval(async () => {
       const res = await fetch(`/api/job-status?jobId=${jobId}`);
       const data = await res.json();
-  
+      
       setStatus(data.status);
   
       if (data.status === "success") {
