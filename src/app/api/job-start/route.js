@@ -71,7 +71,7 @@ export async function POST(request) {
   (async () => {
     
     try {
-      debugger
+      
       // const output = await replicate.run(model, {
       //   input: {
       //     image,
@@ -103,14 +103,12 @@ export async function POST(request) {
         model,
         {
           input: {
-            seed: 20,
             width: 512,
             height: 768,
             prompt: prompt,
             spatial_img: image,
-            lora_scale: 1,
             base_prompt: base_prompt,
-            control_type: "Manhwa"
+            lora_scale: 1.6
           }
         }
       );

@@ -192,7 +192,7 @@ async function promptGenerate(processedImagePath, mimeType, userprompt) {
       file: processedImagePath,
       config: { mimeType :  mimeType }
     });
-  debugger
+  
     // const myfile = await ai.files.upload({
     //   file: path.join(media, url),
     //   config: { mimeType: "image/png" },
@@ -237,7 +237,7 @@ export async function POST(webRequest) {
                 if(fields.action?.[0] == "uploadimage"){
                     let userImageUrl = null;
                     let processedImagePath = imageFile.filepath;
-                    debugger
+                    
                     const imageBufferForUpload = await require('fs').promises.readFile(processedImagePath);
                     const uploadFilename = `${username}-${Date.now()}-user.png`;
                     userImageUrl = await uploadImageToSupabase(imageBufferForUpload, uploadFilename);
