@@ -50,6 +50,7 @@ const UserFileFolder = process.env.USER_FILE_FOLDER;
 const OutputFileFolder = process.env.OUTPUT_FILE_FOLDER;
 const TableName = process.env.TABLE_NAME;
 const model = process.env.ModelName;
+const customGeminiDes = process.env.GeminiPrompt;
 
 export const config = {
     api: {
@@ -198,12 +199,12 @@ async function promptGenerate(processedImagePath, mimeType, userprompt) {
     //   config: { mimeType: "image/png" },
     // });
     // console.log("Uploaded file:", myfile);
-  
+  debugger
     const response = await ai.models.generateContent({
       model: process.env.GEMINIModel,
       contents: [
         createUserContent([
-          process.env.systemPrompt,
+          userprompt,
           createPartFromUri(image.uri, image.mimeType),
         ]),
       ],
@@ -245,7 +246,8 @@ export async function POST(webRequest) {
                         return resolve(createErrorResponse('Failed to store user image in file server.'));
                     }
                     var userprompt = getFullPrompt(style,gender) || "Regenerate this image in Manhwa Style";
-                    var customGeminiDes = "Describe the person in the attached image, one thing is be detailed of its face and age features as its the very important part. Blend the description prompt with the sample prompt below, the prompt below will give you parts of what to put where and what all we need, ";
+                    //var customGeminiDes = "Describe the person in the attached image, one thing is be detailed of its face and age features as its the very important part. Blend the description prompt with the sample prompt below, the prompt below will give you parts of what to put where and what all we need, ";
+                    
                     const latestPrompt = customGeminiDes + userprompt;
                     const GeminiPrompt = await promptGenerate(processedImagePath,imageFile.mimetype,latestPrompt);
                     resolve(NextResponse.json({ status:'Success', url: userImageUrl, base_prompt: GeminiPrompt, name:username, gender:gender  }));
