@@ -32,10 +32,10 @@ function getFullPrompt(style, gender) {
     //   if (prompt && background) {
         if(prompt){
 
-            const randomPrompt = prompt[Math.floor(Math.random() * prompt.length)];
+            var randomPrompt = prompt[Math.floor(Math.random() * prompt.length)];
             // const randomBackground = background[Math.floor(Math.random() * background.length)];
             //return `${randomPrompt} Background: ${randomBackground}`;
-            return `${randomPrompt}`;
+            return randomPrompt;
         } 
         else {
             return "Make a Manhwa style.";
@@ -200,6 +200,7 @@ async function promptGenerate(processedImagePath, mimeType, userprompt) {
     // });
     // console.log("Uploaded file:", myfile);
   debugger
+  //console.log(userprompt);
     const response = await ai.models.generateContent({
       model: process.env.GEMINIModel,
       contents: [
@@ -209,7 +210,7 @@ async function promptGenerate(processedImagePath, mimeType, userprompt) {
         ]),
       ],
     });
-    console.log(response.text);
+    //console.log(response.text);
     // const updatedPrompt = userprompt.replace("[Insert facial identity description here]", response.text);
     // return updatedPrompt;
     return response.text;
@@ -247,8 +248,10 @@ export async function POST(webRequest) {
                     }
                     var userprompt = getFullPrompt(style,gender) || "Regenerate this image in Manhwa Style";
                     //var customGeminiDes = "Describe the person in the attached image, one thing is be detailed of its face and age features as its the very important part. Blend the description prompt with the sample prompt below, the prompt below will give you parts of what to put where and what all we need, ";
-                    
-                    const latestPrompt = customGeminiDes + userprompt;
+                    //console.log(userprompt);
+                    const latestPrompt = `${customGeminiDes}  ${userprompt}`;
+                    //console.log(latestPrompt);
+                    debugger
                     const GeminiPrompt = await promptGenerate(processedImagePath,imageFile.mimetype,latestPrompt);
                     resolve(NextResponse.json({ status:'Success', url: userImageUrl, base_prompt: GeminiPrompt, name:username, gender:gender  }));
     
