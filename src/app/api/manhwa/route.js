@@ -247,13 +247,9 @@ export async function POST(webRequest) {
                         return resolve(createErrorResponse('Failed to store user image in file server.'));
                     }
                     var userprompt = getFullPrompt(style,gender) || "Regenerate this image in Manhwa Style";
-                    //var customGeminiDes = "Describe the person in the attached image, one thing is be detailed of its face and age features as its the very important part. Blend the description prompt with the sample prompt below, the prompt below will give you parts of what to put where and what all we need, ";
-                    //console.log(userprompt);
-                    const latestPrompt = `${customGeminiDes}  ${userprompt}`;
-                    //console.log(latestPrompt);
-                    debugger
-                    const GeminiPrompt = await promptGenerate(processedImagePath,imageFile.mimetype,latestPrompt);
-                    resolve(NextResponse.json({ status:'Success', url: userImageUrl, base_prompt: GeminiPrompt, name:username, gender:gender  }));
+                    //const latestPrompt = `${customGeminiDes}  ${userprompt}`;
+                    //const GeminiPrompt = await promptGenerate(processedImagePath,imageFile.mimetype,latestPrompt);
+                    resolve(NextResponse.json({ status:'Success', url: userImageUrl, base_prompt: userprompt, name:username, gender:gender  }));
     
                 }else if(fields.action?.[0]=="generateimage"){
                     const userimageurl = fields.userimageurl?.[0] || "";
