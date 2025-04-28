@@ -14,6 +14,9 @@ const UserFileFolder = process.env.USER_FILE_FOLDER;
 const OutputFileFolder = process.env.OUTPUT_FILE_FOLDER;
 const TableName = process.env.TABLE_NAME;
 const model = process.env.ModelName;
+const fmodel = process.env.FoodieModel;
+const vastAiEndpoint = process.env.VAST_AI_Endpoint;
+const apiKey = process.env.VAST_AI_API_KEY;
 
 async function uploadImageToSupabase(buffer, filename) {
     const filePath = `${OutputFileFolder}/${filename}`;
@@ -62,7 +65,7 @@ async function insertUserData({ username, gender, userimageurl, outputimageurl }
 export async function POST(request) {
   
   const body = await request.json();
-  const { image, prompt, username, gender, base_prompt } = body;
+  const { image, prompt, username, gender, base_prompt, style } = body;
 
   const jobId = uuidv4();
   createJob(jobId);
@@ -70,37 +73,52 @@ export async function POST(request) {
   // Run background task
   (async () => {
     
-    try {
+    
       
-      // const output = await replicate.run(model, {
-      //   input: {
-      //     image,
-      //     prompt,
-      //     width: 1024,
-      //     height: 1024,
-      //     lora_weights: "huggingface.co/UstadPrince/manhwa_male_new",
-      //     num_outputs: 1,
-      //     aspect_ratio: "1:1",
-      //     output_format: "webp",
-      //     guidance_scale: 3.5,
-      //     output_quality: 80,
-      //     prompt_strength: 0.8,
-      //     num_inference_steps: 28,
+      
+      
+      const requestPayload = {
+        input: {
+          width: 512,
+          height: 768,
+          prompt: prompt,
+          spatial_img: image,
+          base_prompt: base_prompt,
+          lora_scale: 2,
+        },
+      };
+      
+      try {
+      //   // Make the POST request to VAST AI model
+      //   const resData = await fetch(vastAiEndpoint, {
+      //     method: 'POST',
+      //     headers: {
+      //       'Authorization': `Bearer ${apiKey}`,
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify(requestPayload),
+      //   });
+      // debugger
+      //   if (!resData.ok) {
+      //     throw new Error('Error calling VAST AI model');
+      //   }
+      
+      //   const result = await resData.json(); // Parsing the JSON response from VAST AI
+      
+      //   // Assuming the model responds with an image URL or the image data
+      //   const imageRUrl = result?.imageUrl || ''; // Adjust based on actual response structure
+      //   console.log('Generated image URL:', imageRUrl);
+      
+      //   // Fetch the image from the VAST AI model response
+      //   const response = await fetch(imageRUrl);
+        
+      
+        
 
-      //     // lora_scale: 1.2,
-      //     // prompt_strength: 0.8,
-      //     // scheduler: "KarrasDPM",
-      //     // num_outputs: 1,
-      //     // guidance_scale: 3.5,
-      //     // apply_watermark: true,
-      //     // negative_prompt: "worst quality, low quality",
-      //     // num_inference_steps: 60
-      //   },
-      // });
-      
-      //Latest Code
-      const output = await replicate.run(
-        model,
+
+debugger
+       const output = await replicate.run(
+       (style == "K-Foodie") ? fmodel : model,
         {
           input: {
             width: 512,
@@ -108,7 +126,7 @@ export async function POST(request) {
             prompt: prompt,
             spatial_img: image,
             base_prompt: base_prompt,
-            lora_scale: 2
+            lora_scale: 1
           }
         }
       );

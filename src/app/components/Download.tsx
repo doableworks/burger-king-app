@@ -44,6 +44,7 @@ async function fetchResponse(action: string, userimageurl: string, generatedimag
 
     const data = await res.json();
     data.prompt = prompt;
+    data.style = formData.style;
     return data;
   } catch (error) {
     console.error("Request failed:", error);
@@ -62,12 +63,12 @@ export default function Download({ onNext }: { onNext: () => void }) {
       console.log("Upload Image:");
       const imageupload = await fetchResponse("uploadimage", "", "", formData);
       if (imageupload?.status === "Success") {
-        await startJob(imageupload.url,imageupload.base_prompt, imageupload.name, imageupload.gender, imageupload.prompt);
+        await startJob(imageupload.url,imageupload.base_prompt, imageupload.name, imageupload.gender, imageupload.prompt, imageupload.style);
       }
     })();
   }, []);
 
-  const startJob = async (imageurl:string, base_prompt:string,name:string, gender:string, prompt:string ) => {
+  const startJob = async (imageurl:string, base_prompt:string,name:string, gender:string, prompt:string, style:string ) => {
     setStatus("starting");
     console.log("Image URL:", imageurl);
     //alert("Image URL: "+ imageurl);
@@ -79,7 +80,8 @@ export default function Download({ onNext }: { onNext: () => void }) {
         prompt: prompt,
         username:name,
         gender:gender,
-        base_prompt:base_prompt
+        base_prompt:base_prompt,
+        style: style
       }),
     });
   
