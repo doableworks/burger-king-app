@@ -91,13 +91,13 @@ console.log(capitalized); // "Male"
 
         const formData = new FormData();
         if(style == "K-Pop"){
-          formData.append('expression', "K-pop enjoying, happy");
+          formData.append('expression', "K-pop Natural");
         }else if(style == "K-Drama"){
-          formData.append('expression', "K-Drama happy, smiling, joyous");
+          formData.append('expression', "K-Drama Serious");
         }else if(style == "K-Foodie"){
-          formData.append('expression', "K-foodie smiling joyous");
+          formData.append('expression', "K-foodie Happiness");
         }else{
-          formData.append('expression', "k-manhwa angry");
+          formData.append('expression', "k-manhwa Angry");
         }
         const subjectRes = await fetch(image);
         if (!subjectRes.ok) {
