@@ -81,20 +81,9 @@ export async function POST(request) {
       try {
 
         const randomIndex = Math.floor(Math.random() * 10) + 1;
-      const filePath = path.join(
-    process.cwd(),
-    'public',
-    'assets',
-    'masks',
-    style,
-    gender,
-    `${randomIndex}.jpg`
-  );
-debugger
-  const maskBuffer = await fs.readFile(filePath);
-  const maskBlob = new Blob([maskBuffer], { type: 'image/jpg' });
-
-
+        const maskUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/assets/masks/${style}/${gender}/${randomIndex}.jpg`;
+        const maskRes = await fetch(maskUrl);
+        const maskBlob = await maskRes.blob();
         const formData = new FormData();
         if(style == "K-Pop"){
           formData.append('expression', "Expression Smiling");
