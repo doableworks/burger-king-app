@@ -5,6 +5,8 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 import Replicate from "replicate";
 import { supabase } from '@/utils/superbase/client';
+import path from 'path';
+import { promises as fs } from 'fs';
 
 const replicate = new Replicate({
   auth: process.env.REPLICATE_API_TOKEN,
@@ -72,83 +74,57 @@ export async function POST(request) {
 
   // Run background task
   (async () => {
-    
-    
-      
-      
-      
-      const requestPayload = {
-        input: {
-          width: 512,
-          height: 768,
-          prompt: prompt,
-          spatial_img: image,
-          base_prompt: base_prompt,
-          lora_scale: 1,
-        },
-      };
-      
       try {
-      //   // Make the POST request to VAST AI model
-      //   const resData = await fetch(vastAiEndpoint, {
-      //     method: 'POST',
-      //     headers: {
-      //       'Authorization': `Bearer ${apiKey}`,
-      //       'Content-Type': 'application/json',
-      //     },
-      //     body: JSON.stringify(requestPayload),
-      //   });
-      // debugger
-      //   if (!resData.ok) {
-      //     throw new Error('Error calling VAST AI model');
-      //   }
-      
-      //   const result = await resData.json(); // Parsing the JSON response from VAST AI
-      
-      //   // Assuming the model responds with an image URL or the image data
-      //   const imageRUrl = result?.imageUrl || ''; // Adjust based on actual response structure
-      //   console.log('Generated image URL:', imageRUrl);
-      
-      //   // Fetch the image from the VAST AI model response
-      //   const response = await fetch(imageRUrl);
-        
-      
-        
 
-
+        const randomIndex = Math.floor(Math.random() * 10) + 1;
+      const filePath = path.join(
+    process.cwd(),
+    'public',
+    'assets',
+    'masks',
+    style,
+    gender,
+    `${randomIndex}.jpg`
+  );
 debugger
-       const output = await replicate.run(
-       (style == "K-Foodie") ? fmodel : model,
-        {
-          input: {
-            width: 512,
-            height: 768,
-            prompt: prompt,
-            spatial_img: image,
-            base_prompt: base_prompt,
-            lora_scale: 1
-          }
-        }
-      );
-     
-      console.log(output.url());
-      const imageUrl = output.url();
-      const response = await fetch(imageUrl.href);
+  const maskBuffer = await fs.readFile(filePath);
+  const maskBlob = new Blob([maskBuffer], { type: 'image/jpg' });
 
-      if (!response.ok) {
-        const outputImageUrl = imageUrl.href;
-        await insertUserData({ username, gender, userimageurl: image, outputimageurl: outputImageUrl });
-        completeJob(jobId, outputImageUrl);
-      }else{
-        const arrayBuffer = await response.arrayBuffer();
-        const buffer = Buffer.from(arrayBuffer);
+
+        const formData = new FormData();
+        if(style == "K-Pop"){
+          formData.append('expression', "Expression Smiling");
+        }else if(style == "K-Drama"){
+          formData.append('expression', "Expression Smiling, Original");
+        }else if(style == "K-Foodie"){
+          formData.append('expression', "Expression Smiling, Original");
+        }else{
+          formData.append('expression', "Expression Angry");
+        }
+        const subjectRes = await fetch(image);
+        if (!subjectRes.ok) {
+          failJob(jobId, "Image Fetch failed");
+        }else{
+      const subjectBlob = await subjectRes.blob();
+      formData.append('subject', subjectBlob, 'subject.jpg');
+      formData.append('mask', maskBlob, 'mask.jpg');
+      const externalRes = await fetch('https://editing-chocolate-fruit-n.trycloudflare.com/generate', {
+        method: 'POST',
+        body: formData,
+      });
+    
+      if (!externalRes.ok) {
+        failJob(jobId, "Image generation failed");
+      }
+      else{
+        const resultBuffer = await externalRes.arrayBuffer();
+        const buffer = Buffer.from(resultBuffer);
         const uploadFilenameg = `${username}-${Date.now()}-generated.png`;
         const outputImageUrl = await uploadImageToSupabase(buffer, uploadFilenameg);
         await insertUserData({ username, gender, userimageurl: image, outputimageurl: outputImageUrl });
         completeJob(jobId, outputImageUrl);
       }
-
-      
+    }
     } catch (err) {
       debugger
       console.error("Job failed:", err);
