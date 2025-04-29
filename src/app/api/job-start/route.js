@@ -79,11 +79,16 @@ export async function POST(request) {
   // Run background task
   (async () => {
       try {
-
+debugger
         const randomIndex = Math.floor(Math.random() * 10) + 1;
-        const maskUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/assets/masks/${style}/${gender}/${randomIndex}.jpg`;
-        const maskRes = await fetch(maskUrl);
-        const maskBlob = await maskRes.blob();
+        
+const capitalized = gender.charAt(0).toUpperCase() + gender.slice(1).toLowerCase();
+console.log(capitalized); // "Male"
+        
+        const maskUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/assets/masks/${style}/${capitalized}/${randomIndex}.jpg`;
+
+
+
         const formData = new FormData();
         if(style == "K-Pop"){
           formData.append('expression', "Expression Smiling");
@@ -100,13 +105,17 @@ export async function POST(request) {
         }else{
       const subjectBlob = await subjectRes.blob();
       formData.append('subject', subjectBlob, 'subject.jpg');
+      const maskRes = await fetch(maskUrl);
+      const maskBlob = await maskRes.blob();
       formData.append('mask', maskBlob, 'mask.jpg');
+      console.log(formData);
       const externalRes = await fetch('https://editing-chocolate-fruit-n.trycloudflare.com/generate', {
         method: 'POST',
         body: formData,
       });
-    
+    console.log(externalRes);
       if (!externalRes.ok) {
+        debugger
         failJob(jobId, "Image generation failed");
       }
       else{
