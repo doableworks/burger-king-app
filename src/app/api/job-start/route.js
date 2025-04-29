@@ -91,13 +91,13 @@ console.log(capitalized); // "Male"
 
         const formData = new FormData();
         if(style == "K-Pop"){
-          formData.append('expression', "Expression Smiling");
+          formData.append('expression', "Smiling");
         }else if(style == "K-Drama"){
-          formData.append('expression', "Expression Smiling, Original");
+          formData.append('expression', "Emotional, Original");
         }else if(style == "K-Foodie"){
-          formData.append('expression', "Expression Smiling, Original");
+          formData.append('expression', "Smiling, Original");
         }else{
-          formData.append('expression', "Expression Angry");
+          formData.append('expression', "Angry");
         }
         const subjectRes = await fetch(image);
         if (!subjectRes.ok) {
