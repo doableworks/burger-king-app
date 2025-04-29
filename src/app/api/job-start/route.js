@@ -21,24 +21,24 @@ const vastAiEndpoint = process.env.VAST_AI_Endpoint;
 const apiKey = process.env.VAST_AI_API_KEY;
 
 async function uploadImageToSupabase(buffer, filename) {
-    const filePath = `${OutputFileFolder}/${filename}`;
+  const filePath = `${OutputFileFolder}/${filename}`;
 
-    const { data, error } = await supabase.storage
-        .from(BucketName)
-        .upload(filePath, buffer, {
-            contentType: 'image/png', // Enforce PNG content type
-        });
+  const { data, error } = await supabase.storage
+    .from(BucketName)
+    .upload(filePath, buffer, {
+      contentType: "image/png", // Enforce PNG content type
+    });
 
-    if (error) {
-        console.error('Supabase Storage Upload Error:', error);
-        return null;
-    }
+  if (error) {
+    console.error("Supabase Storage Upload Error:", error);
+    return null;
+  }
 
-    const { data: publicData } = supabase.storage
-        .from(BucketName)
-        .getPublicUrl(filePath);
+  const { data: publicData } = supabase.storage
+    .from(BucketName)
+    .getPublicUrl(filePath);
 
-    return publicData?.publicUrl || null;
+  return publicData?.publicUrl || null;
 }
 async function getImageBuffer(imageUrl) {
   const response = await fetch(imageUrl);
@@ -46,26 +46,30 @@ async function getImageBuffer(imageUrl) {
   const buffer = Buffer.from(arrayBuffer);
   return buffer;
 }
-async function insertUserData({ username, gender, userimageurl, outputimageurl }) {
-    const { error } = await supabase.from(TableName).insert([
-        {
-            username,
-            gender,
-            userimageurl,
-            outputimageurl,
-        },
-    ]);
+async function insertUserData({
+  username,
+  gender,
+  userimageurl,
+  outputimageurl,
+}) {
+  const { error } = await supabase.from(TableName).insert([
+    {
+      username,
+      gender,
+      userimageurl,
+      outputimageurl,
+    },
+  ]);
 
-    if (error) {
-        console.error('Database Insert Error:', error);
-        return false;
-    }
+  if (error) {
+    console.error("Database Insert Error:", error);
+    return false;
+  }
 
-    return true;
+  return true;
 }
 
 export async function POST(request) {
-  
   const body = await request.json();
   const { image, prompt, username, gender, base_prompt, style } = body;
 
@@ -120,13 +124,21 @@ debugger
         const resultBuffer = await externalRes.arrayBuffer();
         const buffer = Buffer.from(resultBuffer);
         const uploadFilenameg = `${username}-${Date.now()}-generated.png`;
-        const outputImageUrl = await uploadImageToSupabase(buffer, uploadFilenameg);
-        await insertUserData({ username, gender, userimageurl: image, outputimageurl: outputImageUrl });
+        const outputImageUrl = await uploadImageToSupabase(
+          buffer,
+          uploadFilenameg
+        );
+        await insertUserData({
+          username,
+          gender,
+          userimageurl: image,
+          outputimageurl: outputImageUrl,
+        });
         completeJob(jobId, outputImageUrl);
       }
     }
     } catch (err) {
-      debugger
+      debugger;
       console.error("Job failed:", err);
       failJob(jobId, err.message || "Unknown error");
     }
