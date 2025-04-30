@@ -6,12 +6,31 @@ import AlmostDone from "../img/AlmostDone.gif";
 import { FormProvider, useForm1 } from "../context/formContext";
 import kingLogo from "../img/king_logo.svg";
 import { useState } from "react";
+import imageCompression from 'browser-image-compression';
 
+// Function to compress image
+async function compressImage(file:any) {
+  const options = {
+    maxSizeMB: 0.2, // Maximum size in MB
+    maxWidthOrHeight: 800, // Maximum width or height
+    useWebWorker: true, // Use a Web Worker for better performance
+  };
+
+  try {
+    const compressedFile = await imageCompression(file, options);
+    return compressedFile;
+  } catch (error) {
+    console.error('Error compressing image', error);
+  }
+}
 let toastId: string | null = null;
 // ✅ Now we receive formData as a parameter
 async function fetchResponse(formData: any) {
   const formDataToSend = new FormData();
-  formDataToSend.append("subject", formData.file);
+  console.log("Original Image", formData.file);
+  const compressedImage = formData.file.size > 200 * 1024 ? await compressImage(formData.file) : formData.file;
+  console.log("Compressed Image", compressedImage);
+  formDataToSend.append("subject", compressedImage);
   //formDataToSend.append("username", formData.name);
   //formDataToSend.append("gender", formData.gender);
   //formDataToSend.append("style", formData.style);
@@ -30,12 +49,7 @@ const capitalized = formData.gender.charAt(0).toUpperCase() + formData.gender.sl
 console.log(capitalized); // "Male"
   const maskUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/assets/masks/${formData.style}/${capitalized}/${randomIndex}.jpg`;
   formDataToSend.append('mask', maskUrl);
-
-
   try {
-
-
-
 const res = await fetch('/api/generate', {
   method: 'POST',
   body: formDataToSend,
