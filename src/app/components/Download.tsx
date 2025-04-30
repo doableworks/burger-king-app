@@ -31,9 +31,6 @@ async function fetchResponse(formData: any) {
   const compressedImage = formData.file.size > 200 * 1024 ? await compressImage(formData.file) : formData.file;
   console.log("Compressed Image", compressedImage);
   formDataToSend.append("subject", compressedImage);
-  //formDataToSend.append("username", formData.name);
-  //formDataToSend.append("gender", formData.gender);
-  //formDataToSend.append("style", formData.style);
   if(formData.style == "K-Pop"){
     formDataToSend.append('expression', "K-pop Natural");
   }else if(formData.style == "K-Drama"){
@@ -60,15 +57,15 @@ if (!res.ok) {
   location.reload(); // reload the page
   return;
 }
+debugger
 
-const blob = await res.blob();
-const imageUrl = URL.createObjectURL(blob);
-// Now you can pass dataUrl to your frontend
+const { job_id, status} = await res.json();
+return job_id;
 
-    return imageUrl;
   } catch (error) {
     console.error("Request failed:", error);
     alert("An error occurred while submitting the form.");
+
   }
 }
 
@@ -85,28 +82,89 @@ export default function Download({ onNext }: { onNext: () => void }) {
       console.log("Upload Image:");
       const data = await fetchResponse(formData) || "";
 
-   
-      setImageUrl(data);
-      console.log(data);
-      updateForm("file",data);
+
+
+      let job_id = data; // assuming backend returns { job_id }
+
+const pollInterval = 2000; // 2 seconds
+
+const intervalId = setInterval(async () => {
+  try {
+    const jformData = new FormData();
+    jformData.append("job_id",job_id);
+    const statusRes = await fetch('/api/image-status', {
+      method: 'POST',
+      body: jformData,
+    });
+    if (!statusRes.ok) {
+      const statusData = await statusRes.json();
+      if (statusData.status === 'failed') {
+        clearInterval(intervalId);
+        alert('Job failed.');
+        location.reload();
+      } else {
+        console.log('Job still in progress...');
+      }
+    }else{
+      clearInterval(intervalId);
+      console.log('Job done:', "Completed");
+      const blob = await statusRes.blob();
+      const imageUrl = URL.createObjectURL(blob);
+      setImageUrl(imageUrl);
+      console.log(imageUrl);
+      updateForm("file",imageUrl);
       document.getElementById('downloadbtn')?.click();
+    }
+    
+    
+  } catch (err) {
+    clearInterval(intervalId);
+    console.error('Polling error:', err);
+    alert('Error checking job status.');
+    location.reload();
+  }
+}, pollInterval);
+   
+      
     })();
   }, []);
  
 
 
   const [progress, setProgress] = useState(0);
+  const [progressLabel, setProgressLabel] = useState<string>("Uploading Image");
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setProgress((prev) => {
-        if (prev >= 100) {
+    let interval: NodeJS.Timeout;
+    let phase = 1;
+
+    const startProgress = (duration: number) => {
+      const totalSteps = duration / 50;
+      const step = 100 / totalSteps;
+      let current = 0;
+
+      interval = setInterval(() => {
+        current += step;
+
+        const roundedProgress = Math.min(Math.floor(current), 100);
+        setProgress(roundedProgress);
+
+        if (roundedProgress >= 100) {
           clearInterval(interval);
-          return 100;
+
+          if (phase === 1) {
+            phase = 2;
+            setTimeout(() => {
+              setProgress(0);
+              startProgress(12000); // Second phase: 12 seconds
+              setProgressLabel("Processing");
+            }, 500);
+          }
         }
-        return prev + 1;
-      });
-    }, 50);
+      }, 50);
+    };
+
+    startProgress(6000); // First phase: 6 seconds
 
     return () => clearInterval(interval);
   }, []);
@@ -126,7 +184,7 @@ export default function Download({ onNext }: { onNext: () => void }) {
 
         <div className={styles.loader_container}>
           {/* <h5>Processing</h5> */}
-            <h4>Your K-look is heating up</h4>
+            <h4>{progressLabel}</h4>
           <div className={styles.progress_bar}>
             <div
               className={styles.progress_fill}

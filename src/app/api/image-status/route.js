@@ -55,8 +55,8 @@ export async function POST(webRequest) {
     const errorText = json; // or .json() if you expect structured error
     return new NextResponse(JSON.stringify({
       error: json.status + ' to generate image',
-      details: errorText,
-      status: json.status
+      details: json.status,
+      status: 500
     }), {
       headers: { 'Content-Type': 'application/json' },
     });
