@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef, } from "react";
 import CustomButton from "./CustomButton";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -29,6 +29,9 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
   const [isAvatarSelected, setIsAvatarSelected] = useState(false);
   const { formData, updateForm } = useForm1();
 
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+const [currentSlide, setCurrentSlide] = useState(0);
+
   useEffect(() => {
     const storedGender = localStorage.getItem("selectedGender");
     setGender(storedGender);
@@ -41,7 +44,43 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
   setSelectedFrame(frameSrc);
   console.log("Avatar frame stored:", frameSrc);
   updateForm("style",avatar);
+  onNext();
 };
+
+
+const audioRefs = useRef<(HTMLAudioElement | null)[]>([]);
+const lastCenterIndexRef = useRef<number | null>(null);
+
+useEffect(() => {
+  const interval = setInterval(() => {
+    const slides = document.querySelectorAll(".slick-slide");
+    slides.forEach((slide, index) => {
+      const isCenter = slide.classList.contains("slick-center");
+      const audio = audioRefs.current[index];
+
+      if (isCenter) {
+        // Only play if new center slide
+        if (lastCenterIndexRef.current !== index) {
+          lastCenterIndexRef.current = index;
+          if (audio && audio.paused) {
+            audio.play().catch((e) => console.warn("Play error", e));
+          }
+        }
+      } else {
+        if (audio && !audio.paused) {
+          audio.pause();
+          audio.currentTime = 0;
+        }
+      }
+    });
+  }, 200); // every 200ms is fine
+
+  return () => clearInterval(interval);
+}, []);
+
+
+
+
 
   var settings = {
     dots: false,
@@ -71,6 +110,12 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
           <div className={styles.avatar_slider}>
           <Slider {...settings}>
             <div className={`${styles.item} ${selectedFrame === PopFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(PopFrame.src, "K-Pop")}>
+            <audio ref={(el) => {
+                audioRefs.current[0] = el;
+              }}>
+              <source src="K-Pop.mp3" type="audio/mp3" />
+                Your browser does not support the audio element.
+            </audio>
 
               <img src={kpopMale.src} alt="Slider img" />
 
@@ -84,7 +129,12 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
               </div>
             </div>
             <div className={`${styles.item} ${selectedFrame === ManhwaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(ManhwaFrame.src, "Manhwa")}>
-
+            <audio ref={(el) => {
+              audioRefs.current[1] = el;
+            }}>
+              <source src="Anime-Manhwa.mp3" type="audio/mp3" />
+                Your browser does not support the audio element.
+            </audio>
               <img src={manhwaMale.src} alt="Slider img" />
 
               <div className={styles.frame_name_wrapper}>
@@ -97,7 +147,12 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
               </div>
             </div>
             <div className={`${styles.item} ${selectedFrame === FoodieFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(FoodieFrame.src,"K-Foodie")}>
-
+            <audio ref={(el) => {
+              audioRefs.current[2] = el;
+            }}>
+              <source src="K-Foodie.mp3" type="audio/mp3" />
+                Your browser does not support the audio element.
+            </audio>
               <img src={foodieMale.src} alt="Slider img" />
 
               <div className={styles.frame_name_wrapper}>
@@ -111,7 +166,12 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
 
             </div>
             <div className={`${styles.item} ${selectedFrame === DramaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(DramaFrame.src, "K-Drama")}>
-
+            <audio ref={(el) => {
+              audioRefs.current[3] = el;
+            }}>
+              <source src="K-Drama.mp3" type="audio/mp3" />
+                Your browser does not support the audio element.
+            </audio>
               <img src={dramaMale.src} alt="Slider img" />
 
               <div className={styles.frame_name_wrapper}>
@@ -131,6 +191,12 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
           <div className={styles.avatar_slider}>
             <Slider {...settings}>
               <div className={`${styles.item} ${selectedFrame === PopFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(PopFrame.src, "K-Pop")}>
+              <audio ref={(el) => {
+                audioRefs.current[0] = el;
+              }}>
+              <source src="K-Pop.mp3" type="audio/mp3" />
+                Your browser does not support the audio element.
+            </audio>
                 <img src={kpopFemale.src} alt="Slider img" />
                 <div className={styles.frame_name_wrapper}>
                 <div className={styles.frame_name_1}>
@@ -142,6 +208,12 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
               </div>
               </div>
               <div className={`${styles.item} ${selectedFrame === ManhwaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(ManhwaFrame.src, "Manhwa")}>
+              <audio ref={(el) => {
+              audioRefs.current[1] = el;
+            }}>
+              <source src="Anime-Manhwa.mp3" type="audio/mp3" />
+                Your browser does not support the audio element.
+            </audio>
                 <img src={manhwaFemale.src} alt="Slider img" />
                 <div className={styles.frame_name_wrapper}>
                 <div className={styles.frame_name_1}>
@@ -153,6 +225,12 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
               </div>
               </div>
               <div className={`${styles.item} ${selectedFrame === FoodieFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(FoodieFrame.src, "K-Foodie")}>
+              <audio ref={(el) => {
+              audioRefs.current[2] = el;
+            }}>
+              <source src="K-Foodie.mp3" type="audio/mp3" />
+                Your browser does not support the audio element.
+            </audio>
                 <img src={foodieFemale.src} alt="Slider img" />
                 <div className={styles.frame_name_wrapper}>
                 <div className={styles.frame_name_1}>
@@ -164,6 +242,12 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
               </div>
               </div>
               <div className={`${styles.item} ${selectedFrame === DramaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(DramaFrame.src, "K-Drama")}>
+              <audio ref={(el) => {
+              audioRefs.current[3] = el;
+            }}>
+              <source src="K-Drama.mp3" type="audio/mp3" />
+                Your browser does not support the audio element.
+            </audio>
                 <img src={dramaFemale.src} alt="Slider img" />
                 <div className={styles.frame_name_wrapper}>
                 <div className={styles.frame_name_1}>
@@ -179,7 +263,7 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
         )}
         
 
-        <div className={`${styles.btn_section_next_small} ${styles.padd_top}`}>
+        {/* <div className={`${styles.btn_section_next_small} ${styles.padd_top}`}>
         <div
             className={styles.back}
             onClick={onBack}
@@ -200,7 +284,7 @@ export default function Avatar({ onNext, onBack }: { onNext: () => void; onBack:
           >
             Next
           </div>
-        </div>
+        </div> */}
       </div>
     );
 }

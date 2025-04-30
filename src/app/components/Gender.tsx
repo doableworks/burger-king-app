@@ -17,10 +17,16 @@ export default function Gender({ onNext }: { onNext: () => void }){
     const { formData, updateForm } = useForm1();
     /** handleSelectGender */
     const handleSelectGender = (gender: string) => {
-      setSelectedGender(gender);
-      localStorage.setItem("selectedGender", gender); 
-      updateForm("gender",gender);
-    };
+        setSelectedGender(gender);
+        localStorage.setItem("selectedGender", gender); 
+        updateForm("gender", gender);
+        onNext();
+      };
+    // const handleSelectGender = (gender: string) => {
+    //   setSelectedGender(gender);
+    //   localStorage.setItem("selectedGender", gender); 
+    //   updateForm("gender",gender);
+    // };
 
     return(
     <div className={styles.gender}>
@@ -49,13 +55,13 @@ export default function Gender({ onNext }: { onNext: () => void }){
             </div>
         </div>
 
-        <div className={styles.btn_section_next_small}>
+        {/* <div className={styles.btn_section_next_small}>
             <div id="nextBtn"
                 onClick={selectedGender ? onNext : undefined}
                 className={styles.next}
                 >
                 Next
             </div>
-        </div>
+        </div> */}
     </div>);
 }
