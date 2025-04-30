@@ -34,7 +34,7 @@ export async function POST(webRequest) {
   const { fields, files } = await parseForm(req);
   
     const job_id = fields.job_id?.[0];
-    const externalRes = await fetch('https://obtaining-fa-views-pool.trycloudflare.com/queue/'+job_id, {
+    const externalRes = await fetch(process.env.ModelEndpoint+'/queue/'+job_id, {
       method: 'GET'
     });
     console.log(externalRes);

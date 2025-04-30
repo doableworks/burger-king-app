@@ -85,8 +85,8 @@ export default function Download({ onNext }: { onNext: () => void }) {
 
 
       let job_id = data; // assuming backend returns { job_id }
-
-const pollInterval = 2000; // 2 seconds
+if(job_id != ""){
+  const pollInterval = 2000; // 2 seconds
 
 const intervalId = setInterval(async () => {
   try {
@@ -124,6 +124,8 @@ const intervalId = setInterval(async () => {
     location.reload();
   }
 }, pollInterval);
+}
+
    
       
     })();
@@ -156,7 +158,7 @@ const intervalId = setInterval(async () => {
             phase = 2;
             setTimeout(() => {
               setProgress(0);
-              startProgress(12000); // Second phase: 12 seconds
+              startProgress(20000); // Second phase: 12 seconds
               setProgressLabel("Processing");
             }, 500);
           }
@@ -164,7 +166,7 @@ const intervalId = setInterval(async () => {
       }, 50);
     };
 
-    startProgress(6000); // First phase: 6 seconds
+    startProgress(10000); // First phase: 6 seconds
 
     return () => clearInterval(interval);
   }, []);

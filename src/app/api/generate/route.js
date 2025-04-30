@@ -45,7 +45,7 @@ export async function POST(webRequest) {
     const maskBlob = await maskRes.blob();
     proxyForm.append('mask', maskBlob, 'mask.jpg');
     debugger
-    const externalRes = await fetch('https://obtaining-fa-views-pool.trycloudflare.com/generate', {
+    const externalRes = await fetch(process.env.ModelEndpoint+'/generate', {
       method: 'POST',
       body: proxyForm
     });
