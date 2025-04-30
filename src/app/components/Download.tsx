@@ -54,6 +54,12 @@ const res = await fetch('/api/generate', {
   method: 'POST',
   body: formDataToSend,
 });
+if (!res.ok) {
+  const errorText = await res.text(); // optional: log error message
+  alert('Image generation failed. Please try again.');
+  location.reload(); // reload the page
+  return;
+}
 
 const blob = await res.blob();
 const imageUrl = URL.createObjectURL(blob);
