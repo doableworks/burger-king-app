@@ -922,26 +922,24 @@
   .loader_container {
     width: 80%;
     max-width: 600px;
-    margin: 0 auto 60px auto;
-    background: #1c1f26;
+    margin: 0 auto 50px auto;
     border-radius: 8px;
     padding: 20px;
     box-shadow: 0 0 5px rgba(0,0,0,0.3);
-    h5{
-        font-size: 20px;
-        text-align: center;
-        margin-bottom: 20px;
-        color: #fff;
-        font-family: 'Lato';
-    }
+    // h5{
+    //     font-size: 20px;
+    //     text-align: center;
+    //     margin-bottom: 20px;
+    //     color: #fff;
+    //     font-family: 'Lato';
+    // }
   }
   
   .progress_bar {
-    height: 20px;
-    background: #2c2f3a;
+    height: 10px;
     border-radius: 5px;
     overflow: hidden;
-    margin: 25px 0;
+    margin: 10px 0;
   }
   
   .progress_fill {
@@ -960,7 +958,7 @@
     margin-top: 10px;
     text-align: center;
     color: #fff;
-    font-size: 22px;
+    font-size: 18px;
     font-family: 'Lato';
   }
   
