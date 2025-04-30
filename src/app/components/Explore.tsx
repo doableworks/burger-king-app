@@ -9,6 +9,7 @@ import Download from "../img/download_img.jpg";
 import DownloadBtn from "../img/download.png";
 import Insta from "../img/insta.png";
 import kingLogo from "../img/king_logo.svg";
+import manhwaFemale from "../img/manhwa_female.png";
 import { FormProvider, useForm1 } from '../context/formContext';
 
 export default function Explore(){
@@ -43,6 +44,15 @@ export default function Explore(){
     const storeAvatarFrame = localStorage.getItem("selectedAvatarFrame");
     console.log(storeAvatarFrame, "storeAvatarFrame");
     setFramePath(storeAvatarFrame); // Set to state
+  }, []);
+
+  const [hideOverlay, setHideOverlay] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHideOverlay(true);
+    }, 3000); // 2 seconds
+    return () => clearTimeout(timer);
   }, []);
 
     return(
@@ -119,6 +129,10 @@ export default function Explore(){
         textAlign: 'center',
         color:'#FFFFFFB2'
     }}>Support</span>
+        </div>
+        <div className={styles.img_loader}>
+          <img src={manhwaFemale.src} className="img-responsive" />
+          <div className={`${styles.overlay} ${hideOverlay ? styles.hide : ''}`}></div>
         </div>
     </div>);
 }

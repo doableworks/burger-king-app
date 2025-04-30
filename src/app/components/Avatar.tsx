@@ -153,12 +153,7 @@ useEffect(() => {
 
             </div>
             <div className={`${styles.item} ${selectedFrame === DramaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(DramaFrame.src, "K-Drama")}>
-            <audio ref={(el) => {
-              audioRefs.current[3] = el;
-            }}>
-              <source src="K-Drama.mp3" type="audio/mp3" />
-                Your browser does not support the audio element.
-            </audio>
+            
               <img src={dramaMale.src} alt="Slider img" />
 
               <div className={styles.frame_name_wrapper}>
