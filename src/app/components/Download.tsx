@@ -105,7 +105,8 @@ export default function Download({ onNext }: { onNext: () => void }) {
         <img src={AlmostDone.src} alt="AlmostDone" />
 
         <div className={styles.loader_container}>
-          <h5>Processing</h5>
+          {/* <h5>Processing</h5> */}
+            <h4>Your K-look is heating up</h4>
           <div className={styles.progress_bar}>
             <div
               className={styles.progress_fill}
@@ -114,7 +115,6 @@ export default function Download({ onNext }: { onNext: () => void }) {
           </div>
           <div className={styles.counter}>{progress}%</div>
         </div>
-        <h4>Your K-look is heating up</h4>
       </div>
       <div id="dwnBtnDiv" style={{ display: "none" }}>
         <CustomButton id="downloadbtn" text="Next" onClick={onNext} />
