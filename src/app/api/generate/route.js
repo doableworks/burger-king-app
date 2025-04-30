@@ -44,6 +44,7 @@ export async function POST(webRequest) {
     const maskRes = await fetch(mask);
     const maskBlob = await maskRes.blob();
     proxyForm.append('mask', maskBlob, 'mask.jpg');
+    debugger
     const externalRes = await fetch('https://nails-arizona-protection-give.trycloudflare.com/generate', {
       method: 'POST',
       body: proxyForm
