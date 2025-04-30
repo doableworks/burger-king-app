@@ -109,7 +109,7 @@ console.log(capitalized); // "Male"
       const maskBlob = await maskRes.blob();
       formData.append('mask', maskBlob, 'mask.jpg');
       console.log(formData);
-      const externalRes = await fetch('https://editing-chocolate-fruit-n.trycloudflare.com/generate', {
+      const externalRes = await fetch('https://nails-arizona-protection-give.trycloudflare.com/generate', {
         method: 'POST',
         body: formData,
       });
