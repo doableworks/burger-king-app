@@ -117,6 +117,22 @@ export default function Download({ onNext }: { onNext: () => void }) {
     return () => clearInterval(interval);
   }, [jobId]);
 
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 100) {
+          clearInterval(interval);
+          return 100;
+        }
+        return prev + 1;
+      });
+    }, 50);
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     <div className={styles.download}>
       <div className={styles.gender_banner}>
@@ -129,6 +145,17 @@ export default function Download({ onNext }: { onNext: () => void }) {
       </div>
       <div className={styles.all_most_done}>
         <img src={AlmostDone.src} alt="AlmostDone" />
+
+        <div className={styles.loader_container}>
+          <h5>Processing</h5>
+          <div className={styles.progress_bar}>
+            <div
+              className={styles.progress_fill}
+              style={{ width: `${progress}%` }}
+            ></div>
+          </div>
+          <div className={styles.counter}>{progress}%</div>
+        </div>
         <h4>Your K-look is heating up</h4>
       </div>
       <div id="dwnBtnDiv" style={{ display: "none" }}>
