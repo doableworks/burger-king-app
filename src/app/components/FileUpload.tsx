@@ -78,7 +78,7 @@ export default function FileUpload({
         <img src={Grnderbanner.src} alt="Grnderbanner" />
         <img src={kingLogo.src} alt="kingLogo" className={styles.kingLogo} />
         <div className={styles.gender_title}>
-          <h3 className={styles.gender_title_1}>Say “Kimchi”</h3>
+          <h3 className={styles.gender_title_1}>K - Snap</h3>
         </div>
       </div>
 

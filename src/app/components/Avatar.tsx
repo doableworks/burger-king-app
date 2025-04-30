@@ -8,14 +8,14 @@ import React from "react";
 import Slider from "react-slick";
 
 import Grnderbanner from "../img/korean_art.jpg";
-import kpopFemale from "../img/kpop_female.jpg";
-import kpopMale from "../img/kpop_male.jpg";
-import manhwaFemale from "../img/manhwa_female.jpg";
+import kpopFemale from "../img/kpop_female.png";
+import kpopMale from "../img/kpop_male.png";
+import manhwaFemale from "../img/manhwa_female.png";
 import manhwaMale from "../img/manhwa_male.jpg";
-import foodieFemale from "../img/foodie_female.jpg";
-import foodieMale from "../img/foodie_male.jpg";
-import dramaFemale from "../img/drama_female.jpg";
-import dramaMale from "../img/drama_male.jpg";
+import foodieFemale from "../img/foodie_female.png";
+import foodieMale from "../img/foodie_male.png";
+import dramaFemale from "../img/drama_female.png";
+import dramaMale from "../img/drama_male.png";
 import PopFrame from "../img/Pop_fram.png";
 import ManhwaFrame from "../img/Manhwa_fram.png";
 import FoodieFrame from "../img/Foodie_fram.png";
@@ -79,7 +79,12 @@ useEffect(() => {
 }, []);
 
 
-
+{/* <audio ref={(el) => {
+                audioRefs.current[0] = el;
+              }}>
+              <source src="K-Pop.mp3" type="audio/mp3" />
+                Your browser does not support the audio element.
+            </audio> */}
 
 
   var settings = {
@@ -110,12 +115,6 @@ useEffect(() => {
           <div className={styles.avatar_slider}>
           <Slider {...settings}>
             <div className={`${styles.item} ${selectedFrame === PopFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(PopFrame.src, "K-Pop")}>
-            <audio ref={(el) => {
-                audioRefs.current[0] = el;
-              }}>
-              <source src="K-Pop.mp3" type="audio/mp3" />
-                Your browser does not support the audio element.
-            </audio>
 
               <img src={kpopMale.src} alt="Slider img" />
 
@@ -129,12 +128,6 @@ useEffect(() => {
               </div>
             </div>
             <div className={`${styles.item} ${selectedFrame === ManhwaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(ManhwaFrame.src, "Manhwa")}>
-            <audio ref={(el) => {
-              audioRefs.current[1] = el;
-            }}>
-              <source src="Anime-Manhwa.mp3" type="audio/mp3" />
-                Your browser does not support the audio element.
-            </audio>
               <img src={manhwaMale.src} alt="Slider img" />
 
               <div className={styles.frame_name_wrapper}>
@@ -147,12 +140,6 @@ useEffect(() => {
               </div>
             </div>
             <div className={`${styles.item} ${selectedFrame === FoodieFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(FoodieFrame.src,"K-Foodie")}>
-            <audio ref={(el) => {
-              audioRefs.current[2] = el;
-            }}>
-              <source src="K-Foodie.mp3" type="audio/mp3" />
-                Your browser does not support the audio element.
-            </audio>
               <img src={foodieMale.src} alt="Slider img" />
 
               <div className={styles.frame_name_wrapper}>
@@ -191,12 +178,6 @@ useEffect(() => {
           <div className={styles.avatar_slider}>
             <Slider {...settings}>
               <div className={`${styles.item} ${selectedFrame === PopFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(PopFrame.src, "K-Pop")}>
-              <audio ref={(el) => {
-                audioRefs.current[0] = el;
-              }}>
-              <source src="K-Pop.mp3" type="audio/mp3" />
-                Your browser does not support the audio element.
-            </audio>
                 <img src={kpopFemale.src} alt="Slider img" />
                 <div className={styles.frame_name_wrapper}>
                 <div className={styles.frame_name_1}>
@@ -208,12 +189,6 @@ useEffect(() => {
               </div>
               </div>
               <div className={`${styles.item} ${selectedFrame === ManhwaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(ManhwaFrame.src, "Manhwa")}>
-              <audio ref={(el) => {
-              audioRefs.current[1] = el;
-            }}>
-              <source src="Anime-Manhwa.mp3" type="audio/mp3" />
-                Your browser does not support the audio element.
-            </audio>
                 <img src={manhwaFemale.src} alt="Slider img" />
                 <div className={styles.frame_name_wrapper}>
                 <div className={styles.frame_name_1}>
@@ -225,12 +200,6 @@ useEffect(() => {
               </div>
               </div>
               <div className={`${styles.item} ${selectedFrame === FoodieFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(FoodieFrame.src, "K-Foodie")}>
-              <audio ref={(el) => {
-              audioRefs.current[2] = el;
-            }}>
-              <source src="K-Foodie.mp3" type="audio/mp3" />
-                Your browser does not support the audio element.
-            </audio>
                 <img src={foodieFemale.src} alt="Slider img" />
                 <div className={styles.frame_name_wrapper}>
                 <div className={styles.frame_name_1}>
@@ -242,12 +211,6 @@ useEffect(() => {
               </div>
               </div>
               <div className={`${styles.item} ${selectedFrame === DramaFrame.src ? styles.active : " "}`} onClick={() => handleAvatarClick(DramaFrame.src, "K-Drama")}>
-              <audio ref={(el) => {
-              audioRefs.current[3] = el;
-            }}>
-              <source src="K-Drama.mp3" type="audio/mp3" />
-                Your browser does not support the audio element.
-            </audio>
                 <img src={dramaFemale.src} alt="Slider img" />
                 <div className={styles.frame_name_wrapper}>
                 <div className={styles.frame_name_1}>
