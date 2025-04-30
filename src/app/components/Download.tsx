@@ -7,45 +7,45 @@ import { FormProvider, useForm1 } from "../context/formContext";
 import kingLogo from "../img/king_logo.svg";
 import { useState } from "react";
 
+let toastId: string | null = null;
 // ✅ Now we receive formData as a parameter
-async function fetchResponse(action: string, userimageurl: string, generatedimageurl: string, formData: any) {
+async function fetchResponse(formData: any) {
   const formDataToSend = new FormData();
-  formDataToSend.append("image", formData.file);
-  formDataToSend.append("username", formData.name);
-  formDataToSend.append("gender", formData.gender);
-  formDataToSend.append("style", formData.style);
-  formDataToSend.append("action", action);
-  formDataToSend.append("userimageurl", userimageurl);
-  formDataToSend.append("generatedimageurl", generatedimageurl);
-  let prompt = "";
+  formDataToSend.append("subject", formData.file);
+  //formDataToSend.append("username", formData.name);
+  //formDataToSend.append("gender", formData.gender);
+  //formDataToSend.append("style", formData.style);
   if(formData.style == "K-Pop"){
-    prompt = "K-pop manhwa style digital illustration of this image";
-  }
-  else if(formData.style == "K-Drama"){
-    prompt = "K-Drama manhwa style digital illustration of this image";
+    formDataToSend.append('expression', "K-pop Natural");
+  }else if(formData.style == "K-Drama"){
+    formDataToSend.append('expression', "K-Drama Serious");
   }else if(formData.style == "K-Foodie"){
-    prompt = "K-Foodie manhwa style digital illustration of this image";
-  }else {
-    prompt = "Manhwa style digital illustration of this image";
+    formDataToSend.append('expression', "K-foodie Happiness");
+  }else{
+    formDataToSend.append('expression', "k-manhwa Angry");
   }
+  const randomIndex = Math.floor(Math.random() * 10) + 1;
+        
+const capitalized = formData.gender.charAt(0).toUpperCase() + formData.gender.slice(1).toLowerCase();
+console.log(capitalized); // "Male"
+  const maskUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/assets/masks/${formData.style}/${capitalized}/${randomIndex}.jpg`;
+  formDataToSend.append('mask', maskUrl);
+
 
   try {
-    const res = await fetch("/api/manhwa", {
-      method: "POST",
-      body: formDataToSend,
-    });
 
-    if (!res.ok) {
-      const errorData = await res.json().catch(() => ({}));
-      console.error("Server Error:", res.status, errorData);
-      alert(`Error ${res.status}: ${errorData.error || "Unknown error"}`);
-      return;
-    }
 
-    const data = await res.json();
-    data.prompt = prompt;
-    data.style = formData.style;
-    return data;
+
+const res = await fetch('/api/generate', {
+  method: 'POST',
+  body: formDataToSend,
+});
+
+const blob = await res.blob();
+const imageUrl = URL.createObjectURL(blob);
+// Now you can pass dataUrl to your frontend
+
+    return imageUrl;
   } catch (error) {
     console.error("Request failed:", error);
     alert("An error occurred while submitting the form.");
@@ -57,65 +57,23 @@ export default function Download({ onNext }: { onNext: () => void }) {
   const [jobId, setJobId] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [status, setStatus] = useState<string>("");
+  
   useEffect(() => {
     (async () => {
       console.log(new Date().toString());
+      setStatus("starting");
       console.log("Upload Image:");
-      const imageupload = await fetchResponse("uploadimage", "", "", formData);
-      if (imageupload?.status === "Success") {
-        await startJob(imageupload.url,imageupload.base_prompt, imageupload.name, imageupload.gender, imageupload.prompt, imageupload.style);
-      }
+      const data = await fetchResponse(formData) || "";
+
+   
+      setImageUrl(data);
+      console.log(data);
+      updateForm("file",data);
+      document.getElementById('downloadbtn')?.click();
     })();
   }, []);
+ 
 
-  const startJob = async (imageurl:string, base_prompt:string,name:string, gender:string, prompt:string, style:string ) => {
-    setStatus("starting");
-    console.log("Image URL:", imageurl);
-    //alert("Image URL: "+ imageurl);
-    const res = await fetch("/api/job-start", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        image: imageurl,
-        prompt: prompt,
-        username:name,
-        gender:gender,
-        base_prompt:base_prompt,
-        style: style
-      }),
-    });
-  
-    const data = await res.json();
-    console.log("Start Job Output",data);
-    setJobId(data.jobId);
-  };
-  
-  useEffect(() => {
-    if (!jobId) return;
-  
-    const interval = setInterval(async () => {
-      const res = await fetch(`/api/job-status?jobId=${jobId}`);
-      const data = await res.json();
-      
-      setStatus(data.status);
-  
-      if (data.status === "success") {
-        setImageUrl(data.result);
-        clearInterval(interval);
-        console.log(data.result);
-        updateForm("file",data.result);
-        document.getElementById('downloadbtn')?.click();
-        
-      } else if (data.status === "error") {
-        alert("Something Went Wrong Please Try Again.");
-        console.error(data.error);
-        clearInterval(interval);
-        window.location.reload();
-      }
-    }, 3000); // poll every 3 seconds
-  
-    return () => clearInterval(interval);
-  }, [jobId]);
 
   const [progress, setProgress] = useState(0);
 
