@@ -6,7 +6,7 @@ import AlmostDone from "../img/AlmostDone.gif";
 import { FormProvider, useForm1 } from "../context/formContext";
 import kingLogo from "../img/king_logo.svg";
 import { useState } from "react";
-import toast from 'react-hot-toast';
+
 let toastId: string | null = null;
 // ✅ Now we receive formData as a parameter
 async function fetchResponse(formData: any) {
