@@ -86,7 +86,7 @@ export default function Download({ onNext }: { onNext: () => void }) {
 
       let job_id = data; // assuming backend returns { job_id }
 if(job_id != ""){
-  const pollInterval = 2000; // 2 seconds
+  const pollInterval = 6000; // 2 seconds
 
 const intervalId = setInterval(async () => {
   try {
@@ -167,7 +167,7 @@ const intervalId = setInterval(async () => {
             phase = 2;
             setTimeout(() => {
               setProgress(0);
-              startProgress(20000); // Second phase: 12 seconds
+              startProgress(25000); // Second phase: 12 seconds
               setProgressLabel("Processing");
             }, 500);
           }
