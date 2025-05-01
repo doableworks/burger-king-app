@@ -34,14 +34,16 @@ export async function POST(webRequest) {
   const { fields, files } = await parseForm(req);
   
     const job_id = fields.job_id?.[0];
-    const externalRes = await fetch(process.env.ModelEndpoint+'/queue/'+job_id, {
+    const externalRes = await fetch(process.env.ModelEndpoint+'/status/'+job_id, {
       method: 'GET'
     });
     console.log(externalRes);
     const json = await externalRes.json();
     console.log(json);
+    
     if(externalRes.ok == true && json.status == "completed"){
-      const base64Data = json.image_base64.replace(/^data:image\/\w+;base64,/, '');
+      
+      const base64Data = json.result.replace(/^data:image\/\w+;base64,/, '');
       const imageBuffer = Buffer.from(base64Data, 'base64');
       return new NextResponse(imageBuffer, {
         status: 200,
@@ -52,12 +54,13 @@ export async function POST(webRequest) {
       });
   }
   else {
+    
     const errorText = json; // or .json() if you expect structured error
     return new NextResponse(JSON.stringify({
-      error: json.status + ' to generate image',
-      details: json.status,
-      status: 500
+      error: `${json.status} to generate image`,
+      details: json.status
     }), {
+      status: 202, // ✅ HTTP status code goes here
       headers: { 'Content-Type': 'application/json' },
     });
   }

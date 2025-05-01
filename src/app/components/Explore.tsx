@@ -11,6 +11,7 @@ import Insta from "../img/insta.png";
 import kingLogo from "../img/king_logo.svg";
 import manhwaFemale from "../img/manhwa_female.png";
 import { FormProvider, useForm1 } from '../context/formContext';
+import { display } from 'html2canvas/dist/types/css/property-descriptors/display';
 
 export default function Explore(){
   const divRef = useRef(null);
@@ -130,9 +131,9 @@ export default function Explore(){
         color:'#FFFFFFB2'
     }}>Support</span>
         </div>
-        <div className={styles.img_loader}>
+        {/* <div className={styles.img_loader} style={{display: 'hidden'}}>
           <img src={manhwaFemale.src} className="img-responsive" />
           <div className={`${styles.overlay} ${hideOverlay ? styles.hide : ''}`}></div>
-        </div>
+        </div> */}
     </div>);
 }

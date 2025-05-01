@@ -57,7 +57,7 @@ if (!res.ok) {
   location.reload(); // reload the page
   return;
 }
-debugger
+
 
 const { job_id, status} = await res.json();
 return job_id;
@@ -96,16 +96,13 @@ const intervalId = setInterval(async () => {
       method: 'POST',
       body: jformData,
     });
+    console.log(statusRes);
     if (!statusRes.ok) {
-      const statusData = await statusRes.json();
-      if (statusData.status === 'failed') {
-        clearInterval(intervalId);
-        alert('Job failed.');
-        location.reload();
-      } else {
-        console.log('Job still in progress...');
-      }
-    }else{
+      alert("Something Went Wrong, Please Try Again!");
+      location.reload();
+    }else if(statusRes.ok == true){
+      
+    if (statusRes.status === 200) {
       clearInterval(intervalId);
       console.log('Job done:', "Completed");
       const blob = await statusRes.blob();
@@ -115,6 +112,18 @@ const intervalId = setInterval(async () => {
       updateForm("file",imageUrl);
       document.getElementById('downloadbtn')?.click();
     }
+    else if(statusRes.status == 202){
+      const statusData = await statusRes.json();
+      console.log(statusData);
+      if (statusData.details === 'failed') {
+        clearInterval(intervalId);
+        alert('Job failed.');
+        location.reload();
+      } else {
+        console.log('Job still in progress...');
+      }
+    }
+  }
     
     
   } catch (err) {

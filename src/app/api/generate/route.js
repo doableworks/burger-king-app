@@ -44,15 +44,13 @@ export async function POST(webRequest) {
     const maskRes = await fetch(mask);
     const maskBlob = await maskRes.blob();
     proxyForm.append('mask', maskBlob, 'mask.jpg');
-    debugger
-    const externalRes = await fetch(process.env.ModelEndpoint+'/generate', {
+    const externalRes = await fetch(process.env.ModelEndpoint+'/submit', {
       method: 'POST',
       body: proxyForm
     });
     console.log(externalRes);
     const json = await externalRes.json();
     console.log(json);
-  debugger
     //const resultBuffer = await externalRes.arrayBuffer();
     if(externalRes.ok == true){
       return new NextResponse(JSON.stringify({
