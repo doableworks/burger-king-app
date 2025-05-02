@@ -475,7 +475,6 @@
         }
     }
     .gender{
-        min-height: 100vh;
         .gender_banner{
             position: relative;
             .kingLogo{
@@ -583,7 +582,7 @@
     }
     .avatar {
         overflow: hidden;
-        min-height: 100vh;
+        // min-height: 100vh;
       
         .gender_banner {
             position: relative;
@@ -995,7 +994,6 @@
           }
     }
     .explore{
-        min-height: 100vh;
         position: relative;
         &::after{
             content: '';

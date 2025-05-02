@@ -63,7 +63,7 @@ export default function FlowManager() {
     <>
       <DesktopView />
       <div className='mobile-view'>
-        <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
           {audioSrc && (
             <audio ref={audioRef} autoPlay loop>
               <source src={audioSrc} type="audio/mp3" />
