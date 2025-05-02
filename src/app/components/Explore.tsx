@@ -105,7 +105,7 @@ export default function Explore(){
       </div>
       <div className={`${styles.btn_section}`}>
         <div className={styles.download_btn} onClick={handleDownload}><img src={DownloadBtn.src} alt="DownloadBtn" />  Download My K-Avatar</div>
-        <div className={styles.share_btn}><img src={Insta.src} alt="Insta" /><a href="https://www.instagram.com/" target='_blank'>Share with your friends</a></div>
+        {/*<div className={styles.share_btn}><img src={Insta.src} alt="Insta" /><a href="https://www.instagram.com/" target='_blank'>Share with your friends</a></div>*/}
       </div>
       <div style={{bottom:0, width:'100%', display:'flex', justifyContent:'space-between', height:'54px', padding:'20px 12px', marginTop:'auto'}}>
             <span style={{
