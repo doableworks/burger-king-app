@@ -91,9 +91,9 @@ console.log(capitalized); // "Male"
 
         const formData = new FormData();
         if(style == "K-Pop"){
-          formData.append('expression', "2");
-        }else if(style == "K-Drama"){
           formData.append('expression', "1");
+        }else if(style == "K-Drama"){
+          formData.append('expression', "2");
         }else if(style == "K-Foodie"){
           formData.append('expression', "3");
         }else{
