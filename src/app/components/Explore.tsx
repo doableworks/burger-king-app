@@ -9,6 +9,7 @@ import Download from "../img/download_img.jpg";
 import DownloadBtn from "../img/download.png";
 import Insta from "../img/insta.png";
 import kingLogo from "../img/king_logo.svg";
+import bkLogoImg from "../img/bk_logo_img.png";
 import manhwaFemale from "../img/manhwa_female.png";
 import { FormProvider, useForm1 } from '../context/formContext';
 import { display } from 'html2canvas/dist/types/css/property-descriptors/display';
@@ -71,6 +72,7 @@ export default function Explore(){
               {framePath && (
                 <img src={framePath} alt="Selected Avatar Frame" />
               )}
+              <img src={bkLogoImg.src} alt="Selected Avatar Frame" className={`${styles.bk_logo}`} />
               <img src={downloadSrc} alt="Download" className={styles.avatar_img_final} /> 
           </div>
       </div>
