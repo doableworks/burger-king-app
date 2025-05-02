@@ -80,14 +80,14 @@ export default function HomePage({ onNext }: { onNext: () => void }) {
           alt="DownArrow"
         />
 
-        <div className={styles.home_avatar_section}>
+      {/*  <div className={styles.home_avatar_section}>
           <h2 className={styles.home_avatar_1}>
             Unleash your <br /> avatar, K-STYLE!
           </h2>
           <h2 className={styles.home_avatar_2}>
             Unleash your <br /> avatar, K-STYLE!
           </h2>
-        </div>
+        </div> */}
 
         {/* <form onSubmit={handleSubmit(onSubmit)} className={`${styles.form}`}>
           <div className={styles.formGroupSection}>
