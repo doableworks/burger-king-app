@@ -32,13 +32,13 @@ async function fetchResponse(formData: any) {
   console.log("Compressed Image", compressedImage);
   formDataToSend.append("subject", compressedImage);
   if(formData.style == "K-Pop"){
-    formDataToSend.append('expression', "K-pop Natural");
+    formDataToSend.append('expression', "1");
   }else if(formData.style == "K-Drama"){
-    formDataToSend.append('expression', "K-Drama Serious");
+    formDataToSend.append('expression', "2");
   }else if(formData.style == "K-Foodie"){
-    formDataToSend.append('expression', "K-foodie Happiness");
+    formDataToSend.append('expression', "3");
   }else{
-    formDataToSend.append('expression', "k-manhwa Angry");
+    formDataToSend.append('expression', "0");
   }
   const randomIndex = Math.floor(Math.random() * 10) + 1;
         
