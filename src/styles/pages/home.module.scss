@@ -1040,13 +1040,14 @@
             margin: 40px auto;
             position: relative;
             .download_frame{
-                height: 500px;
+                height: 480px;
                 width: 100%;
                 border-radius: 15px;
                 img{
-                    height: 500px;
+                    height: 480px;
                     margin: auto;
                     width: 100%;
+                    object-fit: cover;
                     border-radius: 15px;
                     border: 1px solid red;
                 }
