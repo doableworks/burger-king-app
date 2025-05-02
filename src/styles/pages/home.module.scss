@@ -302,7 +302,7 @@
                 .home_center{
                     width: 80%;
                     margin: auto;
-                    margin-top: 40px;
+                    margin-top: 20px;
                     img{
                         width: 100%;
                         border-radius: 20px;
@@ -311,6 +311,7 @@
             }
         }
         .banner_title{
+            margin-top: -55px;
             .banner_title_text{
                 font-size: 20px;
                 color: #FEF200;
@@ -320,7 +321,7 @@
 
         .down_arrow{
             margin: auto;
-            padding: 25px 0;
+            padding: 12px 0;
             animation: moveDown 1s infinite alternate;
         }
         @keyframes moveDown {
@@ -581,6 +582,7 @@
         }
     }
     .avatar {
+        overflow: hidden;
         min-height: 100vh;
       
         .gender_banner {
@@ -838,7 +840,7 @@
             } 
         }
         .take_selfie_wrapper{
-            padding: 50px 0 30px;
+            padding: 20px 0 0px;
             .take_selfie{
                 .star_text{
                     display: flex;
