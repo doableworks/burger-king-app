@@ -5,7 +5,7 @@ import Grnderbanner from "../img/korean_art.jpg";
 import AlmostDone from "../img/AlmostDone.gif";
 import { FormProvider, useForm1 } from "../context/formContext";
 import kingLogo from "../img/king_logo.svg";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import imageCompression from 'browser-image-compression';
 
 // Function to compress image
@@ -74,7 +74,14 @@ export default function Download({ onNext }: { onNext: () => void }) {
   const [jobId, setJobId] = useState<string | null>(null);
   const [imageUrl, setImageUrl] = useState<string | null>(null);
   const [status, setStatus] = useState<string>("");
-  
+  const [final, setFinal] = useState<string>("");
+  const finalRef = useRef<string>("");
+
+// Keep ref in sync with state
+useEffect(() => {
+  finalRef.current = final;
+}, [final]);
+ 
   useEffect(() => {
     (async () => {
       console.log(new Date().toString());
@@ -103,14 +110,15 @@ const intervalId = setInterval(async () => {
     }else if(statusRes.ok == true){
       
     if (statusRes.status === 200) {
-      clearInterval(intervalId);
+      //clearInterval(intervalId);
       console.log('Job done:', "Completed");
+      
       const blob = await statusRes.blob();
       const imageUrl = URL.createObjectURL(blob);
       setImageUrl(imageUrl);
       console.log(imageUrl);
       updateForm("file",imageUrl);
-      document.getElementById('downloadbtn')?.click();
+      setFinal("Completed");
     }
     else if(statusRes.status == 202){
       const statusData = await statusRes.json();
@@ -153,27 +161,34 @@ const intervalId = setInterval(async () => {
       let current = 0;
 
       interval = setInterval(() => {
-        current += step;
-
+        if(finalRef.current !== "") {
+          current += step*2;
+        }else if(current < 95){
+          current += step;
+        }
         const roundedProgress = Math.min(Math.floor(current), 100);
         setProgress(roundedProgress);
-
-        if (roundedProgress >= 100) {
-          clearInterval(interval);
-
-          if (phase === 1) {
-            phase = 2;
-            setTimeout(() => {
-              setProgress(0);
-              startProgress(25000); // Second phase: 12 seconds
-              setProgressLabel("Processing");
-            }, 500);
-          }
+        if(current < 20){
+          setProgressLabel("Uploading Image");
+        }else if(current < 40){
+          setProgressLabel("K-reation in Progress");
+        }else if(current < 60){
+          setProgressLabel("Gear up for a K-twist");
+        } else if(current < 80){
+          setProgressLabel("Giving it a finishing K-touch");
+        } else if(current < 100){
+          setProgressLabel("Almost done, getting you K-ready need to connect with progress bar.");
+        }
+        else if(current >= 100){
+          setProgressLabel("Completed");
+          setTimeout(()=>{
+            document.getElementById('downloadbtn')?.click();
+          },500);
         }
       }, 50);
     };
 
-    startProgress(10000); // First phase: 6 seconds
+    startProgress(60000);
 
     return () => clearInterval(interval);
   }, []);
