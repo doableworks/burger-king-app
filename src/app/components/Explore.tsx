@@ -59,14 +59,14 @@ export default function Explore(){
 
     return(
     <div className={styles.explore}>
-      <div className={styles.gender_banner}>
+      {/* <div className={styles.gender_banner}>
             <img src={Grnderbanner.src} alt="Grnderbanner" />
             <img src={kingLogo.src} alt="kingLogo" className={styles.kingLogo} />
             <div className={styles.gender_title}>
                 <h3 className={styles.gender_title_1}>Woohoo! <br/> Now you're K-ready</h3>
                 <h3 className={styles.gender_title_2}>Woohoo! <br/> Now you're K-ready</h3>
             </div>
-      </div>
+      </div> */}
       <div className={styles.download_img}>
           <div className={styles.download_frame} ref={divRef}>
               {framePath && (
@@ -105,7 +105,7 @@ export default function Explore(){
       </div>
       <div className={`${styles.btn_section}`}>
         <div className={styles.download_btn} onClick={handleDownload}><img src={DownloadBtn.src} alt="DownloadBtn" />  Download My K-Avatar</div>
-        {/*<div className={styles.share_btn}><img src={Insta.src} alt="Insta" /><a href="https://www.instagram.com/" target='_blank'>Share with your friends</a></div>*/}
+        <div className={styles.share_btn}><img src={Insta.src} alt="Insta" /><a href="https://www.instagram.com/" target='_blank'>Share with your friends</a></div>
       </div>
       <div style={{bottom:0, width:'100%', display:'flex', justifyContent:'space-between', height:'54px', padding:'20px 12px', marginTop:'auto'}}>
             <span style={{
@@ -131,7 +131,7 @@ export default function Explore(){
         letterSpacing: '-2%',
         textAlign: 'center',
         color:'#FFFFFFB2'
-    }}>Support</span>
+    }}>TnC Apply</span>
         </div>
         {/* <div className={styles.img_loader} style={{display: 'hidden'}}>
           <img src={manhwaFemale.src} className="img-responsive" />

@@ -54,6 +54,9 @@ export default function Gender({ onNext }: { onNext: () => void }){
                 <h3>Female</h3>
             </div>
         </div>
+        <div className={styles.tnc}>
+            <h5>TnC Apply</h5>
+        </div>
 
         {/* <div className={styles.btn_section_next_small}>
             <div id="nextBtn"

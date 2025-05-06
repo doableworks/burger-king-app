@@ -153,7 +153,11 @@ export default function HomePage({ onNext }: { onNext: () => void }) {
             <button type="submit" className={styles.next}>
               Start Now
             </button>
+            <div className={`${styles.tnc} ${styles.pt_10}`}>
+              <h6>TnC Apply</h6>
+            </div>
           </div>
+         
       </div>
     </>
   );

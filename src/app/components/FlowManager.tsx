@@ -9,6 +9,7 @@ import FileUpload from './FileUpload';
 import Download from './Download';
 import Explore from './Explore';
 import { DesktopView } from './DesktopView';
+import styles from "../../styles/pages/home.module.scss";
 
 export default function FlowManager() {
   const [step, setStep] = useState(1);
@@ -58,6 +59,24 @@ export default function FlowManager() {
     }
     goNext();
   };
+  
+
+  const handleStartVideo = () => {
+    const audio = audioRef.current;
+    if (!audio) return;
+  
+    if (audio.paused) {
+      audio
+        .play()
+        .then(() => setAudioInitialized(true))
+        .catch((err) => console.warn('Autoplay blocked:', err));
+    } else {
+      audio.pause();
+      setAudioInitialized(false);
+    }
+  };
+  
+  
 
   return (
     <>
@@ -70,6 +89,10 @@ export default function FlowManager() {
               Your browser does not support the audio element.
             </audio>
           )}
+
+      <button onClick={handleStartVideo} className={styles.audio_btn}>
+        {audioInitialized ? 'Push' : 'Play'}
+      </button>
 
           {step === 1 && <HomePage onNext={handleStart} />}
           {step === 2 && <Gender onNext={goNext} />}

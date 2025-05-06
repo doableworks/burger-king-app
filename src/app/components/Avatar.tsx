@@ -243,6 +243,10 @@ useEffect(() => {
             Next
           </div>
         </div> */}
+
+          <div className={styles.tnc}>
+            <h5>TnC Apply</h5>
+          </div>
       </div>
     );
 }

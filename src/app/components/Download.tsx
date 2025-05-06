@@ -183,7 +183,7 @@ const intervalId = setInterval(async () => {
   return (
     <div className={styles.download}>
       <div className={styles.gender_banner}>
-        <img src={Grnderbanner.src} alt="Grnderbanner" />
+        <img src={Grnderbanner.src} alt="Grnderbanner" className={styles.Grnderbanner} />
         <img src={kingLogo.src} alt="kingLogo" className={styles.kingLogo} />
         <div className={styles.gender_title}>
           <h3 className={styles.gender_title_1}>Almost done!</h3>
@@ -208,6 +208,9 @@ const intervalId = setInterval(async () => {
       <div id="dwnBtnDiv" style={{ display: "none" }}>
         <CustomButton id="downloadbtn" text="Next" onClick={onNext} />
       </div>
+      <div className={styles.tnc}>
+            <h6>TnC Apply</h6>
+          </div>
     </div>
   );
 }

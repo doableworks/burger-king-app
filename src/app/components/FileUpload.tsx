@@ -75,7 +75,7 @@ export default function FileUpload({
   return (
     <div className={styles.file_upload}>
       <div className={styles.gender_banner}>
-        <img src={Grnderbanner.src} alt="Grnderbanner" />
+        <img src={Grnderbanner.src} alt="Grnderbanner" className={styles.Grnderbanner} />
         <img src={kingLogo.src} alt="kingLogo" className={styles.kingLogo} />
         <div className={styles.gender_title}>
           <h3 className={styles.gender_title_1}>K - Snap</h3>
@@ -172,6 +172,9 @@ export default function FileUpload({
           Next
         </div>
       </div>
+      <div className={styles.tnc}>
+            <h6>TnC Apply</h6>
+          </div>
     </div>
   );
 }
