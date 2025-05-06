@@ -110,7 +110,7 @@ const intervalId = setInterval(async () => {
     }else if(statusRes.ok == true){
       
     if (statusRes.status === 200) {
-      //clearInterval(intervalId);
+      clearInterval(intervalId);
       console.log('Job done:', "Completed");
       
       const blob = await statusRes.blob();
