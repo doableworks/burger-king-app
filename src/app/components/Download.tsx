@@ -140,8 +140,6 @@ const intervalId = setInterval(async () => {
     })();
   }, []);
  
-
-
   const [progress, setProgress] = useState(0);
   const [progressLabel, setProgressLabel] = useState<string>("Uploading Image");
 
