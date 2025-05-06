@@ -10,6 +10,8 @@ import Download from './Download';
 import Explore from './Explore';
 import { DesktopView } from './DesktopView';
 import styles from "../../styles/pages/home.module.scss";
+import VolumeOn from "../../app/img/volume_on.png";
+import VolumeOff from "../../app/img/volume_off.png";
 
 export default function FlowManager() {
   const [step, setStep] = useState(1);
@@ -90,9 +92,13 @@ export default function FlowManager() {
             </audio>
           )}
 
-      <button onClick={handleStartVideo} className={styles.audio_btn}>
-        {audioInitialized ? 'Push' : 'Play'}
-      </button>
+        <button onClick={handleStartVideo} className={styles.audio_btn}>
+          <img
+            src={audioInitialized ? VolumeOn.src : VolumeOff.src}
+            alt={audioInitialized ? "Audio On" : "Audio Off"}
+            className={styles.audio_icon} // optional: add styling here
+          />
+        </button>
 
           {step === 1 && <HomePage onNext={handleStart} />}
           {step === 2 && <Gender onNext={goNext} />}
