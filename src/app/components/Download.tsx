@@ -240,7 +240,7 @@ const intervalId = setInterval(async () => {
 
         <div className={styles.loader_container}>
           {/* <h5>Processing</h5> */}
-            <h4>{progressLabel}</h4>
+            {/* <h4>{progressLabel}</h4> */}
           <div className={styles.progress_bar}>
             <div
               className={styles.progress_fill}
