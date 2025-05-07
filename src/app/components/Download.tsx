@@ -193,18 +193,50 @@ const intervalId = setInterval(async () => {
     return () => clearInterval(interval);
   }, []);
 
+  
+  const texts = [
+    'Tapping into your Korean aura',
+    'Matching your Fav K Pop style',
+    'Arise your aura',
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [fadeState, setFadeState] = useState(styles.fadeIn);
+
+  useEffect(() => {
+    const cycleText = () => {
+      setFadeState(styles.fadeIn);
+
+      setTimeout(() => {
+        setFadeState(styles.fadeOut);
+        setTimeout(() => {
+          setCurrentIndex((prevIndex) => (prevIndex + 1) % texts.length);
+          cycleText();
+        }, 2000); // fadeOut duration
+      }, 4000); // 2s fadeIn + 2s visible
+    };
+
+    cycleText();
+  }, []);
+
   return (
     <div className={styles.download}>
       <div className={styles.gender_banner}>
         <img src={Grnderbanner.src} alt="Grnderbanner" className={styles.Grnderbanner} />
-        <img src={kingLogo.src} alt="kingLogo" className={styles.kingLogo} />
-        <div className={styles.gender_title}>
+        {/* <img src={kingLogo.src} alt="kingLogo" className={styles.kingLogo} /> */}
+
+        
+        {/* <div className={styles.gender_title}>
           <h3 className={styles.gender_title_1}>Almost done!</h3>
           <h3 className={styles.gender_title_2}>Almost done!</h3>
-        </div>
+        </div> */}
       </div>
       <div className={styles.all_most_done}>
-        <img src={AlmostDone.src} alt="AlmostDone" />
+      <div className={`${styles.auraText} ${fadeState} ${styles.gender_title}`}>
+      <h3 className={styles.gender_title_1}>{texts[currentIndex]}</h3>
+      <h3 className={styles.gender_title_2}>{texts[currentIndex]}</h3>
+    </div>
+        {/* <img src={AlmostDone.src} alt="AlmostDone" /> */}
 
         <div className={styles.loader_container}>
           {/* <h5>Processing</h5> */}
