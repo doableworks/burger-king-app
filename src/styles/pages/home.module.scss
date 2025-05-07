@@ -1270,16 +1270,20 @@
     .tnc{
         h6{
             color: #fff;
-            font-size: 16px;
+            font-size: 10px;
             text-align: right;
-            padding-right: 20px;
+            padding: 0 10px;
+            font-family: 'Lato';
+            line-height: 16px;
         }
         h5{
             color: #fff;
-            font-size: 16px;
+            font-size: 10px;
             text-align: right;
             padding-right: 20px;
             padding-top: 10px;
+            font-family: 'Lato';
+            line-height: 16px;
         }
     }
 }

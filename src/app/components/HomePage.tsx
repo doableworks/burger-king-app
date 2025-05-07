@@ -154,7 +154,7 @@ export default function HomePage({ onNext }: { onNext: () => void }) {
               Start Now
             </button>
             <div className={`${styles.tnc} ${styles.pt_10}`}>
-              <h6>TnC Apply</h6>
+              <h6>*T&C APPLY. TM & © 2025 BURGER KING COMPANY LLC. USED UNDER LICENSE.</h6>
             </div>
           </div> 
       </div>

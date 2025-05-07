@@ -107,9 +107,12 @@ export default function Explore(){
         <div className={styles.download_btn} onClick={handleDownload}><img src={DownloadBtn.src} alt="DownloadBtn" />  Download My K-Avatar</div>
         <div className={styles.share_btn}><img src={Insta.src} alt="Insta" /><a href="https://www.instagram.com/" target='_blank'>Share with your friends</a></div>
       </div>
+      <div className={styles.tnc}>
+        <h6>*T&C APPLY. TM & © 2025 BURGER KING COMPANY LLC. USED UNDER LICENSE.</h6>
+      </div>
       <div style={{bottom:0, width:'100%', display:'flex', justifyContent:'space-between', height:'54px', padding:'20px 12px', marginTop:'auto'}}>
             <span style={{
-        fontFamily: 'Flame Sans',
+        fontFamily: 'Lato',
         fontWeight: '400',
         fontSize: '12px',
         letterSpacing: '-2%',
@@ -117,7 +120,7 @@ export default function Explore(){
         color:'#FFFFFFB2'
     }}>Copyrights@2025</span>
             <span style={{
-        fontFamily: 'Flame Sans',
+        fontFamily: 'Lato',
         fontWeight: '400',
         fontSize: '12px',
         letterSpacing: '-2%',
@@ -125,13 +128,13 @@ export default function Explore(){
         color:'#FFFFFFB2'
     }}>Privacy policy</span>
             <span style={{
-        fontFamily: 'Flame Sans',
+        fontFamily: 'Lato',
         fontWeight: '400',
         fontSize: '12px',
         letterSpacing: '-2%',
         textAlign: 'center',
         color:'#FFFFFFB2'
-    }}>TnC Apply</span>
+    }}>support</span>
         </div>
         {/* <div className={styles.img_loader} style={{display: 'hidden'}}>
           <img src={manhwaFemale.src} className="img-responsive" />

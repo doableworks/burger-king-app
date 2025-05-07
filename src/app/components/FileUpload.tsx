@@ -174,7 +174,7 @@ export default function FileUpload({
         </div>
       </div>
       <div className={styles.tnc}>
-            <h6>TnC Apply</h6>
+            <h6>*T&C APPLY. TM & © 2025 BURGER KING COMPANY LLC. USED UNDER LICENSE.</h6>
           </div>
     </div>
   );

@@ -222,8 +222,8 @@ const intervalId = setInterval(async () => {
         <CustomButton id="downloadbtn" text="Next" onClick={onNext} />
       </div>
       <div className={styles.tnc}>
-            <h6>TnC Apply</h6>
-          </div>
+        <h6>*T&C APPLY. TM & © 2025 BURGER KING COMPANY LLC. USED UNDER LICENSE.</h6>
+      </div>
     </div>
   );
 }

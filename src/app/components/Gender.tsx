@@ -55,7 +55,7 @@ export default function Gender({ onNext }: { onNext: () => void }){
             </div>
         </div>
         <div className={styles.tnc}>
-            <h5>TnC Apply</h5>
+            <h5>*T&C APPLY. TM & © 2025 BURGER KING COMPANY LLC. USED UNDER LICENSE.</h5>
         </div>
 
         {/* <div className={styles.btn_section_next_small}>
