@@ -142,8 +142,8 @@ export default function FileUpload({
 
           <input
             type="file"
-            accept="image/*"
-            capture="user"
+            // accept="image/*"
+            // capture="user"
             ref={uploadInputRef}
             onChange={handleUploadChange}
             style={{ display: "none" }}
