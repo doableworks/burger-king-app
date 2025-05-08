@@ -170,17 +170,19 @@ const intervalId = setInterval(async () => {
         setProgress(roundedProgress);
         if(current < 20){
           setProgressLabel("Uploading Image");
-        }else if(current < 40){
-          setProgressLabel("K-reation in Progress");
-        }else if(current < 60){
-          setProgressLabel("Gear up for a K-twist");
-        } else if(current < 80){
-          setProgressLabel("Giving it a finishing K-touch");
-        } else if(current < 100){
-          setProgressLabel("Almost done, getting you K-ready need to connect with progress bar.");
         }
+        // else if(current < 40){
+        //   setProgressLabel("K-reation in Progress");
+        // }else if(current < 60){
+        //   setProgressLabel("Gear up for a K-twist");
+        // } else if(current < 80){
+        //   setProgressLabel("Giving it a finishing K-touch");
+        // }
+        //  else if(current < 100){
+        //   setProgressLabel("Processing");
+        // }
         else if(current >= 100){
-          setProgressLabel("Completed");
+          setProgressLabel("Processing");
           setTimeout(()=>{
             document.getElementById('downloadbtn')?.click();
           },500);

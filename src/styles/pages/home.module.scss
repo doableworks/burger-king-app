@@ -947,10 +947,18 @@
               .gender_title{
                 position: relative;
                 .gender_title_1{
+                    height: 64px;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
                     font-size: 28px;
                     color: #FEF200;
                 }
                 .gender_title_2{
+                    height: 64px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
                     top: 4px;
                     left: 50%;
                     z-index: -1;
