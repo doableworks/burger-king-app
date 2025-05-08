@@ -195,9 +195,10 @@ const intervalId = setInterval(async () => {
 
   
   const texts = [
-    'Tapping into your Korean aura',
-    'Matching your Fav K Pop style',
-    'Arise your aura',
+    'K-reation in Progress',
+    'Gear up for a K-twist',
+    'Giving it a finishing K-touch',
+    'Almost done, getting you K-ready',
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -240,7 +241,7 @@ const intervalId = setInterval(async () => {
 
         <div className={styles.loader_container}>
           {/* <h5>Processing</h5> */}
-            {/* <h4>{progressLabel}</h4> */}
+            <h4>{progressLabel}</h4>
           <div className={styles.progress_bar}>
             <div
               className={styles.progress_fill}
