@@ -195,10 +195,10 @@ const intervalId = setInterval(async () => {
 
   
   const texts = [
-    'K-reation in Progress',
-    'Gear up for a K-twist',
-    'Giving it a finishing K-touch',
-    'Almost done, getting you K-ready',
+    'K-reation in Progress ⌛',
+    'Gear up for a K-twist 🔥',
+    'Giving it a finishing K-touch 🖌',
+    'Almost done, getting you K-ready 😎',
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
