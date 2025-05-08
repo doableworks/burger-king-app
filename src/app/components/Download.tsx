@@ -153,47 +153,63 @@ const intervalId = setInterval(async () => {
 
   useEffect(() => {
     let interval: NodeJS.Timeout;
-    let phase = 1;
-
-    const startProgress = (duration: number) => {
-      const totalSteps = duration / 50;
+    let current = 0;
+    let phase = 1; // 1: Uploading, 2: Processing
+  
+    const startPhase1 = () => {
+      const duration = 10000; // 10 seconds
+      const totalSteps = duration / 100;
       const step = 100 / totalSteps;
-      let current = 0;
-
+  
+      setProgressLabel("Uploading Image");
+  
       interval = setInterval(() => {
-        if(finalRef.current !== "") {
-          current += step*2;
-        }else if(current < 95){
-          current += step;
-        }
+        current += step;
         const roundedProgress = Math.min(Math.floor(current), 100);
         setProgress(roundedProgress);
-        if(current < 20){
-          setProgressLabel("Uploading Image");
+  
+        if (roundedProgress >= 100) {
+          clearInterval(interval);
+          setProgress(100);
+          startPhase2();
         }
-        // else if(current < 40){
-        //   setProgressLabel("K-reation in Progress");
-        // }else if(current < 60){
-        //   setProgressLabel("Gear up for a K-twist");
-        // } else if(current < 80){
-        //   setProgressLabel("Giving it a finishing K-touch");
-        // }
-        //  else if(current < 100){
-        //   setProgressLabel("Processing");
-        // }
-        else if(current >= 100){
-          setProgressLabel("Processing");
-          setTimeout(()=>{
-            document.getElementById('downloadbtn')?.click();
-          },500);
-        }
-      }, 50);
+      }, 100);
     };
-
-    startProgress(60000);
-
+  
+    const startPhase2 = () => {
+      current = 0;
+      const duration = 50000; // Or however long "processing" should appear
+      const totalSteps = duration / 100;
+      const step = 100 / totalSteps;
+  
+      setProgressLabel("Processing");
+  
+      interval = setInterval(() => {
+        // If the file is processed (e.g., finalRef is ready), finish faster
+        if (finalRef.current !== "") {
+          current += step * 3;
+        } else if(current < 95) {
+          current += step;
+        }
+  
+        const roundedProgress = Math.min(Math.floor(current), 100);
+        setProgress(roundedProgress);
+  
+        if (roundedProgress >= 100) {
+          clearInterval(interval);
+          setProgressLabel("Done");
+          setTimeout(() => {
+            document.getElementById('downloadbtn')?.click();
+          }, 500);
+        }
+      }, 100);
+    };
+  
+    startPhase1();
+  
     return () => clearInterval(interval);
   }, []);
+  
 
   
   const texts = [
