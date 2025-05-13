@@ -178,7 +178,7 @@ const intervalId = setInterval(async () => {
   
     const startPhase2 = () => {
       current = 0;
-      const duration = 50000; // Or however long "processing" should appear
+      const duration = 80000; // Or however long "processing" should appear
       const totalSteps = duration / 100;
       const step = 100 / totalSteps;
   
@@ -187,7 +187,7 @@ const intervalId = setInterval(async () => {
       interval = setInterval(() => {
         // If the file is processed (e.g., finalRef is ready), finish faster
         if (finalRef.current !== "") {
-          current += step * 3;
+          current += step * 5;
         } else if(current < 95) {
           current += step;
         }
