@@ -242,7 +242,7 @@ const intervalId = setInterval(async () => {
     <div className={styles.download}>
       <div className={styles.gender_banner}>
         <img src={Grnderbanner.src} alt="Grnderbanner" className={styles.Grnderbanner} />
-        {/* <img src={kingLogo.src} alt="kingLogo" className={styles.kingLogo} /> */}
+        <img src={kingLogo.src} alt="kingLogo" className={styles.kingLogo} />
 
         
         {/* <div className={styles.gender_title}>
