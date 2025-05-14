@@ -26,11 +26,11 @@ export const metadata: Metadata = {
     title: "Celebrate the K-Wave with Your #AsliKoreanAvatar",
     description:
       "Join the Korean Spicy Fest at Burger King and taste the real K-flavour!",
-    url: "https://www.burgerking.in/koreanavatar", // Your actual URL
+    url: "https://www.bkmanhwaverse.com/", // Your actual URL
     siteName: "Burger King India",
     images: [
       {
-        url: "/favicon.ico", // Place image in `public/` folder
+        url: "/og-image.jpg", // Place image in `public/` folder
         width: 1200,
         height: 630,
         alt: "Burger King Korean Avatar",
