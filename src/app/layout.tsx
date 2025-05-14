@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   description:
     "K-pop fans and Korean spice lovers, it's your moment! Upload your pic, get your #AsliKoreanAvatar, and share it to win exclusive Korean Burgers. Join the Korean Spicy Fest at Burger King and taste the real K-flavour!",
   icons: {
-    icon: "https://www.bkmanhwaverse.com/og-image.jpg", // Optional: your site favicon
+    icon: "https://www.bkmanhwaverse.com/favicon.png", // Optional: your site favicon
   },
   openGraph: {
     title: "Celebrate the K-Wave with Your #AsliKoreanAvatar",
