@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   description:
     "K-pop fans and Korean spice lovers, it's your moment! Upload your pic, get your #AsliKoreanAvatar, and share it to win exclusive Korean Burgers. Join the Korean Spicy Fest at Burger King and taste the real K-flavour!",
   icons: {
-    icon: "/favicon.ico", // Or use png, svg etc.
+    icon: "/og-image.jpg", // Or use png, svg etc.
   },
   openGraph: {
     title: "Celebrate the K-Wave with Your #AsliKoreanAvatar",
