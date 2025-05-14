@@ -30,19 +30,19 @@ export default function HomePage({ onNext }: { onNext: () => void }) {
     onNext();
   };
 
-  const [audioSrc, setAudioSrc] = useState<string | null>(null);
+  const [audioSrc, setAudioSrc] = (useState < string) | (null > null);
 
   useEffect(() => {
     // Function to load and store the audio file URL in localStorage
     const loadAudioFile = () => {
-      const audioFile = '/K-Pop.mp3'; // This should be relative to the public directory
+      const audioFile = "/K-Pop.mp3"; // This should be relative to the public directory
 
       // Check if the file is not already stored in localStorage
-      if (!localStorage.getItem('audioFile')) {
-        localStorage.setItem('audioFile', audioFile); // Save the file URL in localStorage
+      if (!localStorage.getItem("audioFile")) {
+        localStorage.setItem("audioFile", audioFile); // Save the file URL in localStorage
       }
 
-      setAudioSrc(localStorage.getItem('audioFile') || audioFile); // Set the audio source state
+      setAudioSrc(localStorage.getItem("audioFile") || audioFile); // Set the audio source state
     };
 
     loadAudioFile();
@@ -61,32 +61,26 @@ export default function HomePage({ onNext }: { onNext: () => void }) {
             <div className={styles.home_logo}>
               <img src={KingLogo.src} alt="KingLogo" />
             </div>
-            {/* <div className={styles.home_center}>
+            <div className={styles.home_center}>
               <img src={CentrePhoto.src} alt="CentrePhoto" />
-            </div> */}
+            </div>
           </div>
         </div>
 
-        {/* <div className={styles.banner_title}>
+        <div className={styles.banner_title}>
           <h4 className={styles.banner_title_text}>
             transform your photos into <br />
             korean masterpieces.
           </h4>
-        </div> */}
-
-        <div className={styles.banner_title}>
-          <h4 className={styles.banner_title_text}>
-           3000 K-avatars unleashed. Now, it's time to take a K-pause 😉
-          </h4>
         </div>
 
-        {/* <img
+        <img
           src={DownArrow.src}
           className={styles.down_arrow}
           alt="DownArrow"
-        /> */}
+        />
 
-      {/*  <div className={styles.home_avatar_section}>
+        {/*  <div className={styles.home_avatar_section}>
           <h2 className={styles.home_avatar_1}>
             Unleash your <br /> avatar, K-STYLE!
           </h2>
@@ -153,16 +147,22 @@ export default function HomePage({ onNext }: { onNext: () => void }) {
           </div>
         </form> */}
 
-      {/* <div className={`${styles.btn_section_next}`} onClick={() => {
-                onNext();
-            }}>
-            <button type="submit" className={styles.next}>
-              Start Now
-            </button>
-            <div className={`${styles.tnc} ${styles.pt_10}`}>
-              <h6>*T&C APPLY. TM & © 2025 BURGER KING COMPANY LLC. USED UNDER LICENSE.</h6>
-            </div>
-          </div>  */}
+        <div
+          className={`${styles.btn_section_next}`}
+          onClick={() => {
+            onNext();
+          }}
+        >
+          <button type="submit" className={styles.next}>
+            Start Now
+          </button>
+          <div className={`${styles.tnc} ${styles.pt_10}`}>
+            <h6>
+              *T&C APPLY. TM & © 2025 BURGER KING COMPANY LLC. USED UNDER
+              LICENSE.
+            </h6>
+          </div>
+        </div>
       </div>
     </>
   );
