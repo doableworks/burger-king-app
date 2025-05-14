@@ -76,7 +76,7 @@ export default function HomePage({ onNext }: { onNext: () => void }) {
 
         <div className={styles.banner_title}>
           <h4 className={styles.banner_title_text}>
-           3000 K-avatars unleashed. Now, it's time to take a K-pause 😉
+           3000 K-avatars unleashed. <br/> Now, it's time to take a K-pause 😉
           </h4>
         </div>
 
