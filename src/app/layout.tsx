@@ -1,5 +1,3 @@
-// app/layout.tsx or app/page.tsx
-
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -20,23 +18,30 @@ export const metadata: Metadata = {
   description:
     "K-pop fans and Korean spice lovers, it's your moment! Upload your pic, get your #AsliKoreanAvatar, and share it to win exclusive Korean Burgers. Join the Korean Spicy Fest at Burger King and taste the real K-flavour!",
   icons: {
-    icon: "/og-image.jpg", // Or use png, svg etc.
+    icon: "/favicon.ico", // Optional: your site favicon
   },
   openGraph: {
     title: "Celebrate the K-Wave with Your #AsliKoreanAvatar",
     description:
       "Join the Korean Spicy Fest at Burger King and taste the real K-flavour!",
-    url: "https://www.bkmanhwaverse.com/og-image.jpg", // Your actual URL
+    url: "https://www.bkmanhwaverse.com", // ✅ Root URL of your site
     siteName: "Burger King India",
     images: [
       {
-        url: "/og-image.jpg", // Place image in `public/` folder
+        url: "https://www.bkmanhwaverse.com/og-image.jpg", // ✅ ABSOLUTE URL
         width: 1200,
         height: 630,
         alt: "Burger King Korean Avatar",
       },
     ],
     type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Celebrate the K-Wave with Your #AsliKoreanAvatar",
+    description:
+      "Join the Korean Spicy Fest at Burger King and taste the real K-flavour!",
+    images: ["https://www.bkmanhwaverse.com/og-image.jpg"],
   },
 };
 
